@@ -55,7 +55,9 @@ const css = `
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 700; font-size: 1.2rem;
     color: #f0ede6; cursor: pointer; letter-spacing: 0.01em;
+    display: flex; align-items: center; gap: 0.6rem;
   }
+  .nav-mark { height: 1.75rem; width: auto; display: block; }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
   .nav-links a {
     font-size: 0.78rem; font-weight: 400;
@@ -268,7 +270,9 @@ const css = `
   .footer-logo {
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 700; font-size: 1rem; color: #f0ede6;
+    display: flex; align-items: center; gap: 0.55rem;
   }
+  .footer-mark { height: 1.5rem; width: auto; display: block; }
   .footer-links { display: flex; gap: 2rem; list-style: none; }
   .footer-links a {
     font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
@@ -308,7 +312,10 @@ function Nav({ setPage }) {
   const go = (p) => { setPage(p); window.scrollTo(0,0); };
   return (
     <nav className={`nav${scrolled ? " scrolled" : ""}`}>
-      <div className="nav-logo" onClick={() => go("home")}>Ologos</div>
+      <div className="nav-logo" onClick={() => go("home")}>
+        <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="nav-mark" />
+        <span>Ologos</span>
+      </div>
       <ul className="nav-links">
         {["about","philosophy","team"].map(p => (
           <li key={p}><a onClick={() => go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
@@ -633,7 +640,10 @@ export default function App() {
       <Nav setPage={setPage} />
       {pages[page]}
       <footer className="footer">
-        <div className="footer-logo">Ologos</div>
+        <div className="footer-logo">
+          <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="footer-mark" />
+          <span>Ologos</span>
+        </div>
         <ul className="footer-links">
           {["about","philosophy","team","contact"].map(p=>(
             <li key={p}><a onClick={()=>go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
