@@ -567,8 +567,36 @@ function TeamPage() {
   );
 }
 
+const CONTACT_ENDPOINT = "https://forms.telogos.ai/contact";
+
 function ContactPage() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const payload = {
+      name: `${(fd.get("firstName") || "").trim()} ${(fd.get("lastName") || "").trim()}`.trim(),
+      email: (fd.get("email") || "").trim(),
+      organization: (fd.get("organization") || "").trim(),
+      inquiry_type: (fd.get("inquiry_type") || "").trim(),
+      message: (fd.get("message") || "").trim(),
+      website: fd.get("website") || "", // honeypot
+    };
+    setStatus("sending");
+    try {
+      const res = await fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      setStatus(res.ok && data.ok ? "sent" : "error");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <div className="page">
       <section className="section" style={{paddingTop:"8rem",borderBottom:"1px solid rgba(240,237,230,0.12)"}}>
@@ -584,7 +612,7 @@ function ContactPage() {
             <p className="body-text" style={{marginBottom:"2.5rem"}}>
               Whether you're an investor evaluating our ventures, an enterprise client seeking AI-enabled capabilities, or a strategic acquirer exploring a portfolio fit -- we want to hear from you.
             </p>
-            {[["Email","contact@ologos.ai"],["Location","Fayetteville, Tennessee"],["Entity","Ologos LLC"]].map(([l,v]) => (
+            {[["Email","contact@telogos.ai"],["Location","Fayetteville, Tennessee"],["Entity","Ologos LLC"]].map(([l,v]) => (
               <div key={l} style={{display:"flex",gap:"1.5rem",marginBottom:"1rem"}}>
                 <span style={{fontSize:"0.68rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(240,237,230,0.45)",paddingTop:"0.1rem",width:"70px",flexShrink:0}}>{l}</span>
                 <span style={{fontSize:"0.875rem",fontWeight:300,color:"rgba(240,237,230,0.82)"}}>{v}</span>
@@ -592,22 +620,25 @@ function ContactPage() {
             ))}
           </div>
           <div>
-            {sent ? (
+            {status === "sent" ? (
               <div style={{borderTop:"1px solid rgba(240,237,230,0.2)",paddingTop:"2rem"}}>
                 <div style={{fontFamily:"'Playfair Display',Georgia,serif",fontSize:"1.2rem",color:"#f0ede6",marginBottom:"0.5rem"}}>Message received.</div>
                 <div style={{fontSize:"0.875rem",fontWeight:300,color:"rgba(240,237,230,0.6)"}}>We'll be in touch within two business days.</div>
               </div>
             ) : (
-              <>
+              <form onSubmit={submit}>
+                {/* honeypot — hidden from humans; bots fill it and the submission is silently dropped */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                  style={{position:"absolute",left:"-9999px",width:"1px",height:"1px",opacity:0}} />
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0 2rem"}}>
-                  <div className="field"><label>First Name</label><input type="text" placeholder="James" /></div>
-                  <div className="field"><label>Last Name</label><input type="text" placeholder="Longmire" /></div>
+                  <div className="field"><label>First Name</label><input name="firstName" type="text" placeholder="James" required /></div>
+                  <div className="field"><label>Last Name</label><input name="lastName" type="text" placeholder="Longmire" /></div>
                 </div>
-                <div className="field"><label>Organization</label><input type="text" placeholder="Company or Agency" /></div>
-                <div className="field"><label>Email</label><input type="email" placeholder="you@domain.com" /></div>
+                <div className="field"><label>Organization</label><input name="organization" type="text" placeholder="Company or Agency" /></div>
+                <div className="field"><label>Email</label><input name="email" type="email" placeholder="you@domain.com" required /></div>
                 <div className="field">
                   <label>I am reaching out as a</label>
-                  <select defaultValue="">
+                  <select name="inquiry_type" defaultValue="">
                     <option value="" disabled>Select</option>
                     <option>Investor / LP</option>
                     <option>Enterprise Client</option>
@@ -617,11 +648,17 @@ function ContactPage() {
                     <option>Other</option>
                   </select>
                 </div>
-                <div className="field"><label>Message</label><textarea placeholder="What are you exploring?" /></div>
-                <button className="btn-solid" style={{width:"100%",justifyContent:"center"}} onClick={() => setSent(true)}>
-                  Send Message →
+                <div className="field"><label>Message</label><textarea name="message" placeholder="What are you exploring?" required /></div>
+                {status === "error" && (
+                  <p style={{fontSize:"0.8rem",fontWeight:300,color:"#F06B35",marginBottom:"1rem"}}>
+                    Something went wrong sending your message — please email contact@telogos.ai directly.
+                  </p>
+                )}
+                <button type="submit" className="btn-solid" disabled={status === "sending"}
+                  style={{width:"100%",justifyContent:"center",opacity:status === "sending" ? 0.6 : 1,cursor:status === "sending" ? "default" : "pointer"}}>
+                  {status === "sending" ? "Sending…" : "Send Message →"}
                 </button>
-              </>
+              </form>
             )}
           </div>
         </div>
