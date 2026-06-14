@@ -515,7 +515,12 @@ function TeamPage() {
     {init:"ML",name:"Micah Longmire",role:"CEO / CTO",bio:"Sr. Systems and AI Architect with a track record of delivering AI capability across classified, multi-cloud federal environments. Micah leads product development from concept through deployment -- building enterprise GenAI platforms, agentic orchestration frameworks, and RAG-based systems that meet the compliance rigor of regulated settings. His hands-on work spans AWS GovCloud and Bedrock, FedRAMP and NIST 800-53, and original tooling including CrewPort, an MCP-native AI agent marketplace. His orientation is consistent: moving AI from abstract promise into usable, governed, mission-relevant capability."},
     {init:"JL",name:"Jay Longmire",role:"CFO / COO",bio:"Technology consultant and CEO of Peak TSP with two decades of experience bridging executive objectives and real-world technical execution. Jay's work spans software implementation, custom development, IT consulting, and business-process improvement -- with an MBA and hands-on technical depth that lets him operate fluently across both boardroom and infrastructure. His military background as an automation officer with the Mississippi Army National Guard, including deployments to Iraq, brings a disciplined, mission-focused approach to operational leadership and execution."},
     {init:"JK",name:"Justin Kuiper, CISSP",role:"CISO",bio:"Cybersecurity and space systems architect with two decades of experience across aerospace, defense, high-performance computing, AI, and hybrid cloud infrastructure. Justin currently serves as Director of Architecture & Engineering at Future Tech Enterprise, where he leads secure cloud and infrastructure solutions for complex, multi-tenant environments supporting AI/ML workloads, defense missions, and critical infrastructure. His approach is secure-by-design from the ground up -- connecting technical rigor directly to operational outcomes."},
-    {init:"JDL",name:"James D. Longmire",role:"CIO",bio:"Northrop Grumman Fellow and Senior Systems Architect focused on enterprise-scale digital ecosystems, AI-enabled architecture, and the governance of complex technical systems. JD specializes in federated digital ecosystems for regulated, mission-critical environments -- spanning AI-enabled enterprise platforms, agentic systems, digital thread strategy, architecture governance, and large-scale infrastructure modernization. Alongside his enterprise work, he conducts independent research on AI epistemology, systems theory, and the philosophical foundations of intelligence and knowledge -- exploring the limits of generative AI and the architectural distinction between fluent derivation and reliable knowledge. His approach to technology leadership is consistent: architecture must be technically sound, operationally useful, epistemically disciplined, and aligned to human responsibility."},
+    {init:"JDL",name:"James D. Longmire",role:"CIO / CMO",bio:[
+      "James D. (JD) Longmire is an award-winning technology strategist, aerospace and defense fellow, and Senior Systems Architect with more than 30 years of experience in enterprise and mission IT. His work focuses on enterprise-scale digital ecosystems, AI-enabled architecture, and the governance of complex technical systems.",
+      "JD specializes in designing and governing federated digital ecosystems for regulated, mission-critical environments, including AI-enabled enterprise platforms, agentic systems, digital thread strategy, architecture governance, and large-scale infrastructure modernization. He has led initiatives spanning enterprise transformation, classified and regulated environments, digital engineering ecosystems, and next-generation technology adoption.",
+      "In parallel with his enterprise responsibilities, JD conducts independent research in artificial intelligence, systems theory, and the foundations of knowledge and decision-making. His work examines the capabilities and limitations of generative AI and the architectural requirements for trustworthy, accountable AI-enabled systems.",
+      "His approach to technology leadership is grounded in a simple principle: architecture must be technically rigorous, operationally effective, governable at scale, and aligned with human responsibility.",
+    ]},
   ];
   return (
     <div className="page">
@@ -538,7 +543,11 @@ function TeamPage() {
                 <div className="team-init">{m.init}</div>
                 <div className="team-name">{m.name}</div>
                 <div className="team-role">{m.role}</div>
-                <div className="team-bio">{m.bio}</div>
+                <div className="team-bio">
+                  {(Array.isArray(m.bio) ? m.bio : [m.bio]).map((para, i) => (
+                    <p key={i} style={i > 0 ? {marginTop:"0.7rem"} : undefined}>{para}</p>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
