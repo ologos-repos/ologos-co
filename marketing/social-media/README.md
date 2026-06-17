@@ -16,19 +16,22 @@ The site is structured in discrete editorial blocks that map cleanly to posts:
 | Who We Work With | Audience-targeted posts (investors / enterprise / acquirers) |
 | Team bios | Leadership spotlights |
 
-## Planned layout
+## Layout
 
 ```
 social-media/
-├── linkedin/
-│   ├── launch-sequence.md   # 5–6 posts to introduce the Page
-│   └── evergreen/           # principle series, philosophy, audience posts
-└── (other channels TBD)
+└── linkedin/                       # voice: punchy
+    ├── launch-sequence.md          # 6 posts to introduce the Page
+    └── evergreen/
+        ├── operating-principles.md # the six, one post each (weekly series)
+        └── thought-leadership.md   # founding thesis + audience posts
 ```
+
+Other channels (X, etc.) deferred until LinkedIn cadence is proven.
 
 ## Workflow
 
 - Copy is reviewed by JD before publishing.
 - Posting is manual until the LinkedIn Community Management API token is live; then automated from a poster tool (operating record / token stay in thinx per repo-routing rule).
 
-> Status: scaffold only. Content bank pending channel + voice decisions.
+> Status: LinkedIn content bank drafted (16 posts). Awaiting JD review before publishing.
