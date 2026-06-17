@@ -50,13 +50,6 @@
 **So what:** The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs.
 **Stage:** Spec + reference implementation
 
-## Agent-economy infrastructure (the plumbing)
-
-### Sovereign agent infrastructure
-**What:** Hermetic (multi-agent coordination), Hermit (agent platform as a Gitea overlay), Dock / Circle (sovereign DMZ gateway), Sympathy-MCP (host provisioning), Legate.Studio (MCP-first memory-as-a-service).
-**So what:** The connective tissue for distributed, sovereign agent systems — owned, not rented. Depth here is why the products above can be governed end to end.
-**Stage:** In build
-
 ---
 
 *Snapshot, not a prospectus. Most projects are pre-revenue and in-flight; the viability story is breadth, coherence, live systems, and velocity.*
