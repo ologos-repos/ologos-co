@@ -6,7 +6,7 @@
   "description": "ologos.co — Ologos LLC corporate site",
   "scripts": {
     "dev": "vite",
-    "build": "node marketing/social-media/build-preview.mjs && node marketing/build-portfolio.mjs && vite build",
+    "build": "node marketing/social-media/build-preview.mjs && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
