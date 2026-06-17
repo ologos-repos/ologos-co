@@ -1,6 +1,6 @@
 # LinkedIn — Operating Principles series (evergreen)
 
-The six operating principles from ologos.co, one post each. Punchy. Drip one a week as a recurring series after the launch sequence. Strong hook, one idea, a line that lands.
+The six operating principles from ologos.co, one post each. Punchy. Drip one a week as a recurring series after the launch sequence. Strong hook, one idea, a line that lands. Every post carries an ologos.co link.
 
 ---
 
@@ -11,6 +11,8 @@ Most teams start building to find out if the idea is good.
 We write the thesis first. Falsifiable, with the structural gap and the exit path named. If it can't be stated as a claim that could be proven wrong, it isn't ready.
 
 No thesis, no build. That one rule kills more bad projects than any review board.
+
+ologos.co
 
 `#Innovation #Strategy #ProductStrategy`
 
@@ -24,6 +26,8 @@ We use enterprise systems engineering methodology, the kind built for large-scal
 
 Most failures aren't component failures. They're integration failures nobody designed for.
 
+ologos.co
+
 `#SystemsEngineering #Architecture #AI`
 
 ---
@@ -35,6 +39,8 @@ We reward the engineer who finds the failure mode early, not the one who sounds 
 Overconfidence is a design flaw. A system, or a team, that can't name where it breaks will find out the expensive way.
 
 Calibrated doubt is a feature. We build it in.
+
+ologos.co
 
 `#EngineeringCulture #AIGovernance #Leadership`
 
@@ -48,6 +54,8 @@ We assign IP, document governance, and structure the cap table before the first 
 
 Clean isn't a phase. It's a starting condition.
 
+ologos.co
+
 `#VentureBuilding #Governance #MandA`
 
 ---
@@ -60,6 +68,8 @@ We build agentic AI as a force multiplier for expertise, never a substitute for 
 
 Capability without curation isn't autonomy. It's exposure.
 
+ologos.co
+
 `#AgenticAI #AIGovernance #ResponsibleAI`
 
 ---
@@ -71,5 +81,7 @@ The conviction under everything we build:
 AI cannot transcend the rational order it approximates. It participates in that order. It doesn't replace it.
 
 We build from that constraint instead of pretending it isn't there. It's why our systems are designed to know their own limits.
+
+ologos.co
 
 `#PhilosophyOfTechnology #AI #AIGovernance`

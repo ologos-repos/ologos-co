@@ -1,6 +1,6 @@
 # LinkedIn — Launch sequence
 
-Six posts to introduce the Ologos Page. Punchy register. Post top-to-bottom over the first 2–3 weeks. Hook line is written to survive feed truncation. Review before publishing.
+Six posts to introduce the Ologos Page. Punchy register. Post top-to-bottom over the first 2–3 weeks. Hook line is written to survive feed truncation. Every post carries an ologos.co link. Review before publishing.
 
 ---
 
@@ -15,6 +15,8 @@ Ologos is a think tank and innovation factory. We incubate high-conviction ideas
 We don't take outside capital at the parent level. We're the engine that produces the ventures that do.
 
 Ologos is on LinkedIn. Follow along.
+
+ologos.co
 
 `#Innovation #AgenticAI #SystemsEngineering #DeepTech`
 
@@ -32,6 +34,8 @@ The acquirer buys the venture. Ologos walks away capitalized and ready to build 
 
 That's the whole business. The discipline is the moat.
 
+How it works: ologos.co
+
 `#VentureBuilding #Strategy #AI`
 
 ---
@@ -47,6 +51,8 @@ Every Ologos venture clears three gates before it's real.
 03 — Venture Spin-off. Independent S-Corp. Clean cap table, assigned IP, documented governance.
 
 Structured for diligence from the first commit, not bolted on before the raise.
+
+The full thesis: ologos.co
 
 `#Innovation #SystemsThinking #VentureBuilding`
 
@@ -65,6 +71,8 @@ Build a system with no theory of its own limits and it will exceed them in the w
 So we don't treat human judgment as the bottleneck. We treat it as the calibration. Agentic AI as amplification, never replacement.
 
 "Intelligence is not a product of complexity. It is a participation in order that precedes it."
+
+The thesis in full: ologos.co
 
 `#AI #AIGovernance #PhilosophyOfTechnology #AgenticAI`
 
@@ -98,5 +106,7 @@ Justin Kuiper, CISSP — CISO
 JD Longmire — CIO / CMO
 
 The fingerprint shows up in the work.
+
+Meet the team: ologos.co
 
 `#Leadership #DefenseTech #AI #SystemsEngineering`

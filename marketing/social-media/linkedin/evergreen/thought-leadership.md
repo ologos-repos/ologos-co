@@ -1,6 +1,6 @@
 # LinkedIn — Thought leadership & audience posts (evergreen)
 
-Higher-signal standalone posts. Mix into the cadence between the principle series. Punchy, opinionated, built to provoke a comment.
+Higher-signal standalone posts. Mix into the cadence between the principle series. Punchy, opinionated, built to provoke a comment. Every post carries an ologos.co link.
 
 ---
 
@@ -13,6 +13,8 @@ That's the founding thesis of Ologos, and it's not a poster on the wall. It chan
 If intelligence is participation in an order it didn't create, then a model's job is to track that order faithfully, not to manufacture certainty where there's none. Systems designed on that premise stay humble at the boundary. Systems designed without it get confident exactly where they should get careful.
 
 We build on the first premise.
+
+ologos.co
 
 `#AI #PhilosophyOfTechnology #AIGovernance`
 
@@ -28,6 +30,8 @@ We invert that. Every Ologos venture is structured for diligence from the first 
 
 Less surprise. Faster yes.
 
+Talk to us: ologos.co
+
 `#VentureCapital #DueDiligence #DeepTech`
 
 ---
@@ -40,6 +44,8 @@ We build for the second condition. Classified, multi-cloud, FedRAMP, NIST 800-53
 
 If you need AI that ships into a regulated environment and stays governed once it's there, that's the problem we're built for.
 
+ologos.co
+
 `#EnterpriseAI #GovTech #AIGovernance`
 
 ---
@@ -51,5 +57,7 @@ We get mistaken for a startup studio. Or a consulting firm. We're neither, and t
 A studio optimizes for spinning out volume. A firm optimizes for billable hours. We optimize for one thing: ventures that are mature, governed, and clean enough to hand off the day they're ready.
 
 Deliberate beats fast when what you're handing over has to survive diligence.
+
+ologos.co
 
 `#VentureBuilding #Strategy #Innovation`
