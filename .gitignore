@@ -4,4 +4,4 @@ dist
 .DS_Store
 
 # generated social-copy preview
-marketing/social-media/preview.html
+public/marketing/linkedin.html

@@ -29,9 +29,19 @@ social-media/
 
 Other channels (X, etc.) deferred until LinkedIn cadence is proven.
 
+## Browsable preview
+
+`build-preview.mjs` reads the `.md` files and emits `public/marketing/linkedin.html`
+(styled cards, per-post char count, copy buttons). It runs as part of `npm run build`,
+so the page is regenerated from source on every Pages deploy.
+
+- **Live (after deploy):** https://ologos.co/marketing/linkedin.html — `noindex`, not linked from nav (unlisted, but publicly reachable by URL).
+- **Local:** `npm run dev`, then open `/marketing/linkedin.html`.
+- The generated HTML is gitignored; the `.md` files are the source of truth.
+
 ## Workflow
 
-- Copy is reviewed by JD before publishing.
+- Copy is reviewed by JD via the preview page before publishing.
 - Posting is manual until the LinkedIn Community Management API token is live; then automated from a poster tool (operating record / token stay in thinx per repo-routing rule).
 
 > Status: LinkedIn content bank drafted (16 posts). Awaiting JD review before publishing.

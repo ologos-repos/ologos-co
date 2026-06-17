@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 // Generate a browsable preview of the LinkedIn social copy from the .md source.
-// The .md files stay the source of truth; this emits preview.html.
-// Run: node marketing/social-media/build-preview.mjs
+// The .md files stay the source of truth; this emits public/marketing/linkedin.html,
+// which Vite copies verbatim into the Pages build (served at /marketing/linkedin.html).
+// Runs as part of `npm run build`; run standalone with:
+//   node marketing/social-media/build-preview.mjs
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
+const repoRoot = join(here, "..", "..");
 
 const SOURCES = [
   { file: "linkedin/launch-sequence.md", section: "Launch sequence" },
@@ -84,6 +87,7 @@ const body = sections
 const html = `<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
 <title>Ologos — LinkedIn copy preview</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
 <style>
@@ -130,6 +134,8 @@ document.querySelectorAll(".copy").forEach((b)=>{
 </script>
 </body></html>`;
 
-const out = join(here, "preview.html");
+const outDir = join(repoRoot, "public", "marketing");
+mkdirSync(outDir, { recursive: true });
+const out = join(outDir, "linkedin.html");
 writeFileSync(out, html);
 console.log(`wrote ${out} (${total} posts)`);
