@@ -317,7 +317,7 @@ function Nav({ setPage }) {
         <span>Ologos</span>
       </div>
       <ul className="nav-links">
-        {["about","philosophy","team"].map(p => (
+        {["ventures","about","philosophy","team"].map(p => (
           <li key={p}><a onClick={() => go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
         ))}
         <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
@@ -342,6 +342,7 @@ function HomePage({ setPage }) {
           </p>
           <div className="hero-actions">
             <button className="btn-ghost" onClick={() => go("about")}>How We Work</button>
+            <button className="btn-ghost" onClick={() => go("ventures")}>Our Ventures</button>
             <button className="btn-solid" onClick={() => go("contact")}>Partner With Us →</button>
           </div>
         </div>
@@ -571,6 +572,90 @@ function TeamPage() {
   );
 }
 
+function VenturesPage() {
+  const Venture = ({ n, name, tag, stage, what, sowhat, link }) => (
+    <div className="rule-item">
+      <span className="rule-num">{n}</span>
+      <div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",gap:"1rem",flexWrap:"wrap"}}>
+          <div className="rule-title" style={{fontSize:"1.2rem"}}>
+            {name}
+            {tag && <em style={{fontStyle:"normal",color:"#c8956a",fontSize:"0.68rem",marginLeft:"0.65rem",textTransform:"uppercase",letterSpacing:"0.1em"}}>{tag}</em>}
+          </div>
+          {stage && <span style={{fontSize:"0.7rem",textTransform:"uppercase",letterSpacing:"0.08em",color:"rgba(240,237,230,0.4)",whiteSpace:"nowrap"}}>{stage}</span>}
+        </div>
+        <div className="rule-body" style={{marginTop:"0.45rem"}}>{what}</div>
+        <div className="rule-body" style={{marginTop:"0.5rem"}}>
+          <span style={{color:"#c8956a",fontWeight:500}}>So what.</span> {sowhat}
+        </div>
+        {link && (
+          <a href={link} target="_blank" rel="noopener" style={{display:"inline-block",marginTop:"0.75rem",fontSize:"0.82rem",color:"#c8956a",textDecoration:"none",borderBottom:"1px solid rgba(200,149,106,0.4)",paddingBottom:"1px"}}>
+            {link.replace(/^https?:\/\//,"")} →
+          </a>
+        )}
+      </div>
+    </div>
+  );
+  return (
+    <div className="page">
+      <section className="section" style={{paddingTop:"8rem",borderBottom:"1px solid rgba(240,237,230,0.12)"}}>
+        <p className="label">Ventures</p>
+        <h1 className="heading" style={{fontSize:"clamp(2.5rem,5vw,5rem)",maxWidth:820,marginTop:"1rem"}}>
+          The portfolio,<br /><em>in flight.</em>
+        </h1>
+        <p className="body-text" style={{maxWidth:660,marginTop:"1.75rem"}}>
+          Ologos is not one bet. It is a venture engine, and every project here shares one fingerprint: governed, auditable, sovereign AI. The breadth is the proof, a coherent portfolio attacking the agent economy from the standard down to the product, with live systems already running.
+        </p>
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"1.5rem"}}>Flagship &amp; Products</p>
+        <Venture n="01" name="CrewPort" tag="flagship" stage="Live" link="https://crewport.ai"
+          what="Marketplace for AI agent crews, with contract enforcement as a service."
+          sowhat="The agent economy is exploding, but there is no trusted layer to hire, compose, and hold accountable teams of AI agents. CrewPort is that marketplace, with enforceable contracts as the trust mechanism. The toll road for multi-agent work." />
+        <Venture n="02" name="OlogosOffice" stage="Live · demo on request"
+          what="Ologos' own gated, self-hosted, AI-native collaboration and productivity suite: mail, files, office, chat, meet, git and CI, search, and an AI copilot."
+          sowhat="Regulated, defense, and sovereignty-bound orgs cannot put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof." />
+        <Venture n="03" name="DEXter" tag="the user console" stage="Live"
+          what="Governed, OAuth-gated GUI agent console and artifact engine for the Ologos ecosystem."
+          sowhat="The usable front door to governed agents, the copilot UX that makes the platform sellable to non-engineers. Half of the human control layer." />
+        <Venture n="04" name="Ologos Operator" tag="the control plane" stage="Live"
+          what="Super-admin operator console for a governed agent fleet: a gated web UI to launch, authenticate, stream, persist, and audit agent sessions across the org."
+          sowhat="Every enterprise that deploys AI agents at scale needs one governed pane of glass to run and control them, not a pile of terminals. The control plane is where the recurring enterprise license lives, the surface that turns having agents into governing agents." />
+      </section>
+
+      <section className="section section-mid">
+        <p className="label" style={{marginBottom:"1.5rem"}}>Foundational IP &amp; Standards</p>
+        <Venture n="05" name="AIDE" stage="Public corpus + platform"
+          what="The governed, auditable, model-agnostic AI reference architecture and its canonical standards (DEA, OrdSA, MxM, OAgents, AEON, AIDEX)."
+          sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the ventures are its proof points." />
+        <Venture n="06" name="AICP" stage="Protocol"
+          what="Agent Identity Card Protocol: platform-mediated agent identity, tool injection, and work-lifecycle management."
+          sowhat="Enterprises will not hand tools and data to agents they cannot identify. Foundational protocol IP for the trust layer of the agent economy." />
+        <Venture n="07" name="Nous" stage="Library"
+          what="Persistent agent memory architecture: three-tier, PostgreSQL plus SQLite plus embedded vector retrieval, with multi-agent isolation."
+          sowhat="Memory is the unsolved hard part of reliable agents. A reusable, productizable layer that stands on its own." />
+        <Venture n="08" name="Eidolon + Ordinal" stage="Spec + reference impl"
+          what="A domain-agnostic PLM engine (phase gates, requirements tracing, ABAC) and a visual modeling language for AI-driven systems engineering."
+          sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"1.5rem"}}>Agent-Economy Infrastructure</p>
+        <Venture n="09" name="Sovereign agent infrastructure" stage="In build"
+          what="Hermetic (multi-agent coordination), Hermit (agent platform as a Gitea overlay), Dock and Circle (sovereign DMZ gateway), Sympathy-MCP (host provisioning), and Legate.Studio (MCP-first memory-as-a-service)."
+          sowhat="The connective tissue for distributed, sovereign agent systems, owned, not rented. Depth here is why the products can be governed end to end." />
+      </section>
+
+      <section className="section" style={{paddingTop:"0",borderTop:"1px solid rgba(240,237,230,0.12)"}}>
+        <p style={{fontSize:"0.82rem",fontStyle:"italic",color:"rgba(240,237,230,0.4)",maxWidth:660}}>
+          A snapshot, not a prospectus. Most projects are pre-revenue and in-flight; the viability story is breadth, coherence, live systems, and velocity.
+        </p>
+      </section>
+    </div>
+  );
+}
+
 const CONTACT_ENDPOINT = "https://forms.telogos.ai/contact";
 
 function ContactPage() {
@@ -674,7 +759,7 @@ function ContactPage() {
 export default function App() {
   const [page, setPage] = useState("home");
   const go = (p) => { setPage(p); window.scrollTo(0,0); };
-  const pages = { home:<HomePage setPage={setPage}/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
+  const pages = { home:<HomePage setPage={setPage}/>, ventures:<VenturesPage/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
   return (
     <div className="site-root">
       <style>{css}</style>
@@ -686,7 +771,7 @@ export default function App() {
           <span>Ologos</span>
         </div>
         <ul className="footer-links">
-          {["about","philosophy","team","contact"].map(p=>(
+          {["ventures","about","philosophy","team","contact"].map(p=>(
             <li key={p}><a onClick={()=>go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
           ))}
         </ul>
