@@ -98,6 +98,23 @@ const css = `
   }
   .hero-actions { display: flex; gap: 1rem; flex-shrink: 0; }
 
+  /* tasteful "Explore our ventures" link under the headline */
+  .hero-explore {
+    display: inline-block;
+    width: fit-content;
+    margin: -1.5rem 0 2rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #f0ede6; text-decoration: none; cursor: pointer;
+    border-bottom: 1px solid rgba(240,237,230,0.4);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .hero-explore:hover { color: #c8956a; border-color: #c8956a; }
+  .hero-explore .arrow { transition: transform 0.2s; display: inline-block; }
+  .hero-explore:hover .arrow { transform: translateX(3px); }
+
   /* BUTTONS */
   .btn-ghost {
     background: transparent; color: #f0ede6;
@@ -336,13 +353,13 @@ function HomePage({ setPage }) {
           <em>building systems</em><br />
           ready for what's next.
         </h1>
+        <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
         <div className="hero-meta">
           <p className="hero-desc">
             Ologos is an LLC think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture -- structured, mature, and ready for the next phase.
           </p>
           <div className="hero-actions">
             <button className="btn-ghost" onClick={() => go("about")}>How We Work</button>
-            <button className="btn-ghost" onClick={() => go("ventures")}>Our Ventures</button>
             <button className="btn-solid" onClick={() => go("contact")}>Partner With Us →</button>
           </div>
         </div>
