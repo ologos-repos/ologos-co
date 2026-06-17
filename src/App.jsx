@@ -657,13 +657,6 @@ function VenturesPage() {
           sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
       </section>
 
-      <section className="section">
-        <p className="label" style={{marginBottom:"1.5rem"}}>Agent-Economy Infrastructure</p>
-        <Venture n="09" name="Sovereign agent infrastructure" stage="In build"
-          what="Hermetic (multi-agent coordination), Hermit (agent platform as a Gitea overlay), Dock and Circle (sovereign DMZ gateway), Sympathy-MCP (host provisioning), and Legate.Studio (MCP-first memory-as-a-service)."
-          sowhat="The connective tissue for distributed, sovereign agent systems, owned, not rented. Depth here is why the products can be governed end to end." />
-      </section>
-
       <section className="section" style={{paddingTop:"0",borderTop:"1px solid rgba(240,237,230,0.12)"}}>
         <p style={{fontSize:"0.82rem",fontStyle:"italic",color:"rgba(240,237,230,0.4)",maxWidth:660}}>
           A snapshot, not a prospectus. Most projects are pre-revenue and in-flight; the viability story is breadth, coherence, live systems, and velocity.
