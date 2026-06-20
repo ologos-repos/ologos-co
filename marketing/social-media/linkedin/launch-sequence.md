@@ -12,7 +12,7 @@ We built an engine that builds many.
 
 Ologos is a think tank and innovation factory. We incubate high-conviction ideas under hard systems discipline, then spin each one off as an independent venture: clean cap table, assigned IP, real governance, ready for diligence from day one.
 
-We don't take outside capital at the parent level. We're the engine that produces the ventures that do.
+We're the engine that produces investment-ready ventures, structured and clean from day one.
 
 Ologos is on LinkedIn. Follow along.
 
@@ -28,7 +28,7 @@ A startup studio spins out apps. A consulting firm sells hours. We do neither.
 
 Ologos runs one play, repeatedly:
 
-Form a falsifiable thesis. Incubate it under enterprise systems rigor. Spin the mature idea off as a clean, independent S-Corp.
+Form a falsifiable thesis. Incubate it under enterprise systems rigor. Spin the mature idea off as a clean, independent company.
 
 The acquirer buys the venture. Ologos walks away capitalized and ready to build the next one.
 
@@ -48,7 +48,7 @@ Every Ologos venture clears three gates before it's real.
 
 02 — Collaborative Incubation. Domain expertise, agentic AI tooling, and enterprise architecture working in tight loops.
 
-03 — Venture Spin-off. Independent S-Corp. Clean cap table, assigned IP, documented governance.
+03 — Venture Spin-off. Independent company. Clean cap table, assigned IP, documented governance.
 
 Structured for diligence from the first commit, not bolted on before the raise.
 
