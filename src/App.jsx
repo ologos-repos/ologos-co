@@ -356,7 +356,7 @@ function HomePage({ setPage }) {
         <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
         <div className="hero-meta">
           <p className="hero-desc">
-            Ologos is an LLC think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture -- structured, mature, and ready for the next phase.
+            Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture, structured, mature, and ready for the next phase.
           </p>
           <div className="hero-actions">
             <button className="btn-ghost" onClick={() => go("about")}>How We Work</button>
@@ -375,7 +375,7 @@ function HomePage({ setPage }) {
           </div>
           <div>
             <p className="body-text" style={{marginBottom:"1.25rem"}}>
-              Ologos does not take outside capital at the parent level. We are the engine that produces investment-ready ventures. When an idea reaches maturity, we spin it off as a clean S-Corp with its own cap table, IP assignments, and governance structure.
+              Ologos is the engine that produces investment-ready ventures. When an idea reaches maturity, we spin it off as an independent company with its own cap table, assigned IP, and governance structure.
             </p>
             <p className="body-text">
               The acquirer buys the venture. Ologos walks away capitalized and ready to build the next one.
@@ -392,7 +392,7 @@ function HomePage({ setPage }) {
           {[
             ["01","Thesis Formation","Every initiative begins with a written, falsifiable thesis: the structural gap, the differentiated approach, the exit path. No thesis, no build."],
             ["02","Collaborative Incubation","Cross-functional teams work iteratively -- combining domain expertise, agentic AI tooling, and Enterprise-grade systems architecture methodology."],
-            ["03","Venture Spin-off","Mature ideas become independent S-Corps. Clean cap tables, assigned IP, and documented governance -- structured for diligence from day one."],
+            ["03","Venture Spin-off","Mature ideas become independent companies. Clean cap tables, assigned IP, and documented governance, structured for diligence from day one."],
           ].map(([n,t,b]) => (
             <div className="process-col" key={n}>
               <span className="process-num">{n}</span>
@@ -445,8 +445,8 @@ function AboutPage() {
       <section className="section">
         <div className="two-col">
           <div>
-            {["Ologos is an LLC think tank and innovation factory. We do not take outside capital at the Ologos level -- we are the capital-efficient incubation engine that produces the ventures that do.",
-              "When an idea matures, we spin it off as an independent S-Corp: its own cap table, its own IP assignments, its own governance. The venture is structured for investor diligence, government procurement, or strategic acquisition.",
+            {["Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures.",
+              "When an idea matures, we spin it off as an independent company: its own cap table, its own IP assignments, its own governance. The venture is structured for investor diligence, government procurement, or strategic acquisition.",
               "The model is deliberate. Ologos absorbs the early-stage uncertainty so each venture can enter the market clean."
             ].map((t,i) => <p key={i} className="body-text" style={{marginBottom:"1.25rem"}}>{t}</p>)}
           </div>
@@ -711,7 +711,7 @@ function ContactPage() {
             <p className="body-text" style={{marginBottom:"2.5rem"}}>
               Whether you're an investor evaluating our ventures, an enterprise client seeking AI-enabled capabilities, or a strategic acquirer exploring a portfolio fit -- we want to hear from you.
             </p>
-            {[["Email","contact@telogos.ai"],["Location","Fayetteville, Tennessee"],["Entity","Ologos LLC"]].map(([l,v]) => (
+            {[["Email","contact@telogos.ai"],["Location","Fayetteville, Tennessee"]].map(([l,v]) => (
               <div key={l} style={{display:"flex",gap:"1.5rem",marginBottom:"1rem"}}>
                 <span style={{fontSize:"0.68rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(240,237,230,0.45)",paddingTop:"0.1rem",width:"70px",flexShrink:0}}>{l}</span>
                 <span style={{fontSize:"0.875rem",fontWeight:300,color:"rgba(240,237,230,0.82)"}}>{v}</span>
@@ -785,7 +785,7 @@ export default function App() {
             <li key={p}><a onClick={()=>go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
           ))}
         </ul>
-        <div className="footer-copy">© {new Date().getFullYear()} Ologos LLC</div>
+        <div className="footer-copy">© {new Date().getFullYear()} Ologos</div>
       </footer>
     </div>
   );

@@ -1,6 +1,6 @@
 # ologos.co
 
-Corporate site for Ologos LLC — a think tank and innovation factory.
+Corporate site for Ologos — a think tank and innovation factory.
 
 Static site built with **Vite + React**, deployed to **GitHub Pages** via GitHub
 Actions. Custom domain `ologos.co` (see `public/CNAME`) — DNS points the apex at

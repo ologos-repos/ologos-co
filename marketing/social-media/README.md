@@ -1,6 +1,6 @@
 # Social media
 
-Channel-ready social copy for Ologos LLC, derived from the site editorial in `src/App.jsx`.
+Channel-ready social copy for Ologos, derived from the site editorial in `src/App.jsx`.
 
 ## Source → post mapping
 
