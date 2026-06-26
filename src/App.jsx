@@ -633,26 +633,29 @@ function VenturesPage() {
         <Venture n="02" name="OlogosOffice" stage="Live · demo on request"
           what="Ologos' own gated, self-hosted, AI-native collaboration and productivity suite: mail, files, office, chat, meet, git and CI, search, and an AI copilot."
           sowhat="Regulated, defense, and sovereignty-bound orgs cannot put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof." />
-        <Venture n="03" name="DEXter" tag="the user console" stage="Live"
+        <Venture n="03" name="SKIPJACK" stage="In development"
+          what="A zero-trust, edge-first agentic platform for disconnected and contested environments. One governed substrate that carries identity, memory, assurance, just-in-time privilege, and behavioral observability for fleets of AI agents, built to run where the network is degraded, intermittent, or absent."
+          sowhat="Every agent-security tool on the market assumes the cloud is reachable. Agent identity is the problem nobody has solved, and only one percent of organizations have adopted just-in-time privileged access. SKIPJACK is built for exactly that gap: privilege that exists only while it is observed and fails closed when visibility is lost, a custody and freshness layer that stamps the age of every piece of data, and observation of agents from beneath the runtime rather than from their own self-reports. The hyperscalers are structurally weakest here because they are built for connectivity and scale. That is the wedge." />
+        <Venture n="04" name="DEXter" tag="the user console" stage="Live"
           what="Governed, OAuth-gated GUI agent console and artifact engine for the Ologos ecosystem."
           sowhat="The usable front door to governed agents, the copilot UX that makes the platform sellable to non-engineers. Half of the human control layer." />
-        <Venture n="04" name="Ologos Operator" tag="the control plane" stage="Live"
+        <Venture n="05" name="Ologos Operator" tag="the control plane" stage="Live"
           what="Super-admin operator console for a governed agent fleet: a gated web UI to launch, authenticate, stream, persist, and audit agent sessions across the org."
           sowhat="Every enterprise that deploys AI agents at scale needs one governed pane of glass to run and control them, not a pile of terminals. The control plane is where the recurring enterprise license lives, the surface that turns having agents into governing agents." />
       </section>
 
       <section className="section section-mid">
         <p className="label" style={{marginBottom:"1.5rem"}}>Foundational IP &amp; Standards</p>
-        <Venture n="05" name="AIDE" stage="Public corpus + platform"
+        <Venture n="06" name="AIDE" stage="Public corpus + platform"
           what="The governed, auditable, model-agnostic AI reference architecture and its canonical standards (DEA, OrdSA, MxM, OAgents, AEON, AIDEX)."
           sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the ventures are its proof points." />
-        <Venture n="06" name="AICP" stage="Protocol"
+        <Venture n="07" name="AICP" stage="Protocol"
           what="Agent Identity Card Protocol: platform-mediated agent identity, tool injection, and work-lifecycle management."
           sowhat="Enterprises will not hand tools and data to agents they cannot identify. Foundational protocol IP for the trust layer of the agent economy." />
-        <Venture n="07" name="Nous" stage="Library"
+        <Venture n="08" name="Nous" stage="Library"
           what="Persistent agent memory architecture: three-tier, PostgreSQL plus SQLite plus embedded vector retrieval, with multi-agent isolation."
           sowhat="Memory is the unsolved hard part of reliable agents. A reusable, productizable layer that stands on its own." />
-        <Venture n="08" name="Eidolon + Ordinal" stage="Spec + reference impl"
+        <Venture n="09" name="Eidolon + Ordinal" stage="Spec + reference impl"
           what="A domain-agnostic PLM engine (phase gates, requirements tracing, ABAC) and a visual modeling language for AI-driven systems engineering."
           sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
       </section>
