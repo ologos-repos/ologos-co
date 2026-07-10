@@ -235,6 +235,8 @@ const css = `
     border-right: 1px solid rgba(26,26,26,0.1);
   }
   .team-card:last-child { border-right: none; }
+  .team-card:nth-child(4n) { border-right: none; }
+  .team-card:nth-child(n+5) { border-top: 1px solid rgba(26,26,26,0.1); }
   .team-init {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.8rem; font-weight: 400;
@@ -534,6 +536,7 @@ function TeamPage() {
     {init:"JL",name:"Jay Longmire",role:"CFO / COO",bio:"Technology consultant and CEO of Peak TSP with two decades of experience bridging executive objectives and real-world technical execution. Jay's work spans software implementation, custom development, IT consulting, and business-process improvement -- with an MBA and hands-on technical depth that lets him operate fluently across both boardroom and infrastructure. His military background as an automation officer with the Mississippi Army National Guard, including deployments to Iraq, brings a disciplined, mission-focused approach to operational leadership and execution."},
     {init:"JK",name:"Justin Kuiper, CISSP",role:"CISO",bio:"Cybersecurity and space systems architect with two decades of experience across aerospace, defense, high-performance computing, AI, and hybrid cloud infrastructure. Justin currently serves as Director of Architecture & Engineering at an award-winning aerospace and defense value-added reseller, where he leads secure cloud and infrastructure solutions for complex, multi-tenant environments supporting AI/ML workloads, defense missions, and critical infrastructure. His approach is secure-by-design from the ground up -- connecting technical rigor directly to operational outcomes."},
     {init:"JDL",name:"James D. Longmire",role:"CIO / CMO",bio:"James D. (JD) Longmire is an award-winning technology strategist, aerospace and defense fellow, and Senior Systems Architect with more than 30 years in enterprise and mission IT. He specializes in designing and governing federated digital ecosystems for regulated, mission-critical environments, spanning AI-enabled enterprise platforms, agentic systems, digital thread strategy, architecture governance, and large-scale infrastructure modernization. In parallel, he conducts independent research on the capabilities and limits of generative AI and the architectural requirements for trustworthy, accountable systems. His guiding principle is consistent: architecture must be technically rigorous, operationally effective, governable at scale, and aligned with human responsibility."},
+    {init:"CAS",name:"C A Schlecht, JD, PhD",role:"CLO",bio:"Patent attorney and IP strategist with a PhD in chemistry and 15+ years of protecting innovation across life sciences, pharmaceuticals, mechanical engineering, CS/AI, and medtech. As founder of Midtown Intellectual Property, PC, C A leads patent preparation and prosecution, trademark and copyright registration, portfolio management, enforcement, and corporate structuring for startups and established companies. He brings that same rigor to Ologos, having served as Chief Legal Officer for a clinical-stage device company. His orientation is consistent: intellectual property should move ideas from the benchtop to market, cleanly protected and ready for diligence."},
   ];
   return (
     <div className="page">
