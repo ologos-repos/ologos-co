@@ -98,11 +98,14 @@ const css = `
   }
   .hero-actions { display: flex; gap: 1rem; flex-shrink: 0; }
 
-  /* tasteful "Explore our ventures" link under the headline */
+  /* tasteful "Explore our ventures" / "Explore our thought leadership" links under the headline */
+  .hero-explore-group {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
+    margin: -1.5rem 0 2rem;
+  }
   .hero-explore {
     display: inline-block;
     width: fit-content;
-    margin: -1.5rem 0 2rem;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.9rem; font-weight: 400;
     letter-spacing: 0.04em;
@@ -195,6 +198,26 @@ const css = `
     color: rgba(240,237,230,0.72);
   }
   .rule-body-dark { color: rgba(26,26,26,0.6); }
+
+  /* compact citation list — Thought Leadership page */
+  .paper-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(240,237,230,0.08);
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1.5rem; flex-wrap: wrap;
+  }
+  .paper-item:last-child { border-bottom: none; }
+  .paper-title {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.5;
+    color: rgba(240,237,230,0.85); text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .paper-title:hover { color: #c8956a; border-color: rgba(200,149,106,0.5); }
+  .paper-note {
+    font-size: 0.72rem; letter-spacing: 0.04em; color: rgba(240,237,230,0.4);
+    white-space: nowrap; flex-shrink: 0;
+  }
 
   /* PROCESS */
   .process-col {
@@ -337,8 +360,8 @@ function Nav({ setPage }) {
         <span>Ologos</span>
       </div>
       <ul className="nav-links">
-        {["ventures","about","philosophy","team"].map(p => (
-          <li key={p}><a onClick={() => go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
+        {[["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]].map(([p,label]) => (
+          <li key={p}><a onClick={() => go(p)}>{label}</a></li>
         ))}
         <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
       </ul>
@@ -356,7 +379,10 @@ function HomePage({ setPage }) {
           <em>building systems</em><br />
           ready for what's next.
         </h1>
-        <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
+        <div className="hero-explore-group">
+          <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
+          <a className="hero-explore" onClick={() => go("research")}>Explore our thought leadership <span className="arrow">→</span></a>
+        </div>
         <div className="hero-meta">
           <p className="hero-desc">
             Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture, structured, mature, and ready for the next phase.
@@ -679,6 +705,134 @@ function VenturesPage() {
   );
 }
 
+function ThoughtLeadershipPage() {
+  const Paper = ({ title, doi, note }) => (
+    <div className="paper-item">
+      <a href={`https://doi.org/${doi}`} target="_blank" rel="noopener" className="paper-title">{title}</a>
+      {note && <span className="paper-note">{note}</span>}
+    </div>
+  );
+  const Tier = ({ label, children }) => (
+    <div style={{marginBottom:"2.25rem"}}>
+      <p className="label" style={{marginBottom:"0.85rem",color:"rgba(240,237,230,0.45)"}}>{label}</p>
+      {children}
+    </div>
+  );
+
+  return (
+    <div className="page">
+      <section className="section" style={{paddingTop:"8rem",borderBottom:"1px solid rgba(240,237,230,0.12)"}}>
+        <p className="label">Thought Leadership</p>
+        <h1 className="heading" style={{fontSize:"clamp(2.5rem,5vw,5rem)",maxWidth:820,marginTop:"1rem"}}>
+          Published research,<br /><em>not marketing copy.</em>
+        </h1>
+        <p className="body-text" style={{maxWidth:700,marginTop:"1.75rem"}}>
+          The architecture and governance research behind Ologos's ventures is published openly, DOI-registered, and independently citable — not confined to internal decks. This is the corpus itself, curated to what's professionally relevant here; the fuller personal bodies of work (including research outside AI) are linked via ORCID for anyone who wants them.
+        </p>
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"0.5rem"}}>AIDE Canon &middot; JD Longmire &amp; Micah Longmire</p>
+        <p className="body-text" style={{maxWidth:700,marginBottom:"2rem"}}>
+          The AI-centric Digital Ecosystem (AIDE) reference architecture and its constituent standards, foundation through enterprise-platform tiers. Canonical home: <a href="https://github.com/ologos-repos/aide-canon" target="_blank" rel="noopener" style={{color:"#c8956a"}}>aide-canon</a>. Full corpora: <a href="https://orcid.org/0009-0009-1383-7698" target="_blank" rel="noopener" style={{color:"#c8956a"}}>JD Longmire (ORCID)</a> &middot; <a href="https://orcid.org/0009-0006-7608-9322" target="_blank" rel="noopener" style={{color:"#c8956a"}}>Micah Longmire (ORCID)</a>.
+        </p>
+
+        <Tier label="Foundation">
+          <Paper title="Human-Curated, AI-Enabled (HCAE): A Framework for Reliable AI Deployment" doi="10.5281/zenodo.18368697" />
+          <Paper title="AI Dunning-Kruger (AIDK): A Framework for Understanding Structural Epistemic Limitations" doi="10.5281/zenodo.18316059" />
+        </Tier>
+        <Tier label="Constructs">
+          <Paper title="Digital Ecosystems Architecture (DEA): A Three-Baseline Framework for Coherent Digital Realization" doi="10.5281/zenodo.20349598" />
+          <Paper title="Ordinal Systems Architecture (OrdSA): A Control Grammar for Enterprise AI Authority" doi="10.5281/zenodo.20334233" />
+          <Paper title="Mx-Modes: A Meta-Harness Framework for Multi-Mode AI Operation" doi="10.5281/zenodo.20419449" />
+          <Paper title="OAgents: A Behavioral Envelope Standard for Trustworthy AI Agent Operations" doi="10.5281/zenodo.19425021" />
+          <Paper title="OAgents: A Pre-Standardization Draft Profile for Operational AI Agent Trustworthiness" doi="10.5281/zenodo.19427785" />
+        </Tier>
+        <Tier label="Enterprise platforms">
+          <Paper title="AEON: An Enterprise Control Plane Architecture for the Agentic Era" doi="10.5281/zenodo.20349596" />
+          <Paper title="AIDEX: An Architecture for Human-Curated, AI-Enabled Knowledge Work" doi="10.5281/zenodo.20349597" />
+          <Paper title="The Next Shape of the IT Business Capability Model: From Vendor Substrate to Owned Agentic Platforms (OAAD)" doi="10.5281/zenodo.20349601" />
+        </Tier>
+        <Tier label="Related">
+          <Paper title="The Theseus Agent Thesis: Identity and Memory as the Permanents of AI Agency" doi="10.5281/zenodo.20327458" note="Micah Longmire, sole author" />
+          <Paper title="Portable Agent Harness Architecture (PAHA): A Capability-Centric Framework for Governed AI Ecosystems in Sovereignty-Bounded Enterprises" doi="10.5281/zenodo.20112632" />
+          <Paper title="Modus Primus: Engineering Specification for AI Architecture (PAHA Companion)" doi="10.5281/zenodo.20113785" />
+          <Paper title="Zero Trust for Fallible Agents: Why AI Belongs Inside the ZTA Control Model" doi="10.5281/zenodo.20472686" />
+        </Tier>
+      </section>
+
+      <section className="section section-mid">
+        <div className="inner section">
+        <p className="label" style={{marginBottom:"0.5rem"}}>HGC&sup3;AE&sup2; &amp; Managing Agentics Ops &middot; Justin Kuiper</p>
+        <p className="body-text" style={{maxWidth:700,marginBottom:"2rem"}}>
+          A parallel, independently developed research program on edge/tactical AI governance, agentic operations discipline, and zero-trust agent execution — published as Non Sequitur Publishing. Full corpus: <a href="https://orcid.org/0009-0008-7099-3286" target="_blank" rel="noopener" style={{color:"#c8956a"}}>Justin Kuiper (ORCID)</a>.
+        </p>
+
+        <Tier label="HGC³AE² reference architecture">
+          <Paper title="Mitigating Confident Misalignment (HGC³AE²)" doi="10.5281/zenodo.19869285" />
+          <Paper title="Epistemic Constraints and Semantic Compression" doi="10.5281/zenodo.19869287" />
+          <Paper title="The HGC³AE² Reference Architecture" doi="10.5281/zenodo.20180191" />
+          <Paper title="Confident Misalignment as Adversarial Attack Surface" doi="10.5281/zenodo.20180223" />
+          <Paper title="HGC³AE² at the Degraded Edge" doi="10.5281/zenodo.19991170" />
+          <Paper title="Persona Drift and Hallucination" doi="10.5281/zenodo.20006864" />
+        </Tier>
+        <Tier label="Skipjack Protocol &amp; agentic ops discipline">
+          <Paper title="Agile Scrum, Agentics, and the Skipjack Protocol" doi="10.5281/zenodo.19869293" />
+          <Paper title="Operating Model for Agentic Teams" doi="10.5281/zenodo.19869313" />
+          <Paper title="Sprint Discipline for AI-Augmented Work (Skipjack)" doi="10.5281/zenodo.20006990" />
+          <Paper title="The QA Lookback Loop" doi="10.5281/zenodo.20006960" />
+          <Paper title="RF Skip Jack" doi="10.5281/zenodo.20755047" />
+        </Tier>
+        <Tier label="The Problem Series &mdash; tactical edge operations">
+          <Paper title="The Classification Problem" doi="10.5281/zenodo.19964128" />
+          <Paper title="The Accreditation Problem" doi="10.5281/zenodo.19964133" />
+          <Paper title="The Interoperability Problem" doi="10.5281/zenodo.19964139" />
+          <Paper title="The Deployment Problem (Series Capstone)" doi="10.5281/zenodo.19964143" />
+          <Paper title="The State Coherence Problem" doi="10.5281/zenodo.19986911" />
+          <Paper title="The Orchestration Problem" doi="10.5281/zenodo.19986915" />
+          <Paper title="The Protocol Selection Problem" doi="10.5281/zenodo.19986917" />
+          <Paper title="The Workload Class Problem" doi="10.5281/zenodo.19986920" />
+          <Paper title="When the Link Is the Variable" doi="10.5281/zenodo.19986907" />
+          <Paper title="The Tactical Substrate (survey)" doi="10.5281/zenodo.19991166" />
+        </Tier>
+        <Tier label="Managing Agentics Ops &mdash; zero-trust governance">
+          <Paper title="The Robo Stack in Production (Managing Agentics Ops)" doi="10.5281/zenodo.20180179" />
+          <Paper title="Governance-Gated Execution (Agentic Zero-Trust)" doi="10.5281/zenodo.20180231" />
+          <Paper title="Context Integrity Failure as Agentic Cache-Poisoning Analog" doi="10.5281/zenodo.20180225" />
+          <Paper title="Silent Fallback as a Denial-of-Validation Attack" doi="10.5281/zenodo.20180229" />
+          <Paper title="Reconciliation Checkpoints as SOC Hunt-Cycle Doctrine" doi="10.5281/zenodo.20180233" />
+          <Paper title="Tool Orchestration as Confused-Deputy Surface" doi="10.5281/zenodo.20180235" />
+          <Paper title="Human Authority Boundary as Chain-of-Custody" doi="10.5281/zenodo.20180239" />
+          <Paper title="Intent Integrity" doi="10.5281/zenodo.20180140" />
+          <Paper title="Epistemic Weather" doi="10.5281/zenodo.20180142" />
+          <Paper title="The Comprehension Instrument for Agentic Systems" doi="10.5281/zenodo.20180181" />
+          <Paper title="Operational Plan: Heterogeneous Federation" doi="10.5281/zenodo.20180187" />
+        </Tier>
+        <Tier label="Compute, cost &amp; provenance">
+          <Paper title="Capacity Sourcing" doi="10.5281/zenodo.20180195" />
+          <Paper title="Heterogeneous Compute Routing" doi="10.5281/zenodo.20180201" />
+          <Paper title="The Capex/Opex Inflection" doi="10.5281/zenodo.20180203" />
+          <Paper title="Cost Guardrails for Self-Hosted Inference" doi="10.5281/zenodo.20180205" />
+          <Paper title="Cross-Account Harness Coordination" doi="10.5281/zenodo.20180209" />
+          <Paper title="Security and Provenance for Self-Hosted Agentic Systems" doi="10.5281/zenodo.20180211" />
+        </Tier>
+        <Tier label="Edge AI doctrine">
+          <Paper title="Edge AI Doctrine" doi="10.5281/zenodo.19869289" />
+          <Paper title="Agentic Substrate" doi="10.5281/zenodo.19869291" />
+          <Paper title="Alistair Prime in a Box" doi="10.5281/zenodo.19869307" />
+        </Tier>
+        <Tier label="Cyber governance in emergent stacks">
+          <Paper title="Cyber Governance in Emergent Stacks" doi="10.5281/zenodo.20755101" />
+          <Paper title="The Autonomy Problem" doi="10.5281/zenodo.20755103" />
+          <Paper title="The Intent Preservation Problem" doi="10.5281/zenodo.20755105" />
+          <Paper title="The Semantic-Integrity Problem" doi="10.5281/zenodo.20755107" />
+        </Tier>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 const CONTACT_ENDPOINT = "https://forms.ologos.co/contact";
 
 function ContactPage() {
@@ -782,7 +936,7 @@ function ContactPage() {
 export default function App() {
   const [page, setPage] = useState("home");
   const go = (p) => { setPage(p); window.scrollTo(0,0); };
-  const pages = { home:<HomePage setPage={setPage}/>, ventures:<VenturesPage/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
+  const pages = { home:<HomePage setPage={setPage}/>, ventures:<VenturesPage/>, research:<ThoughtLeadershipPage/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
   return (
     <div className="site-root">
       <style>{css}</style>
@@ -794,8 +948,8 @@ export default function App() {
           <span>Ologos</span>
         </div>
         <ul className="footer-links">
-          {["ventures","about","philosophy","team","contact"].map(p=>(
-            <li key={p}><a onClick={()=>go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
+          {[["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"],["contact","Contact"]].map(([p,label])=>(
+            <li key={p}><a onClick={()=>go(p)}>{label}</a></li>
           ))}
         </ul>
         <div className="footer-copy">© {new Date().getFullYear()} Ologos</div>
