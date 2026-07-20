@@ -645,20 +645,23 @@ function VenturesPage() {
         <Venture n="05" name="Ologos Operator" tag="the control plane" stage="Live"
           what="Super-admin operator console for a governed agent fleet: a gated web UI to launch, authenticate, stream, persist, and audit agent sessions across the org."
           sowhat="Every enterprise that deploys AI agents at scale needs one governed pane of glass to run and control them, not a pile of terminals. The control plane is where the recurring enterprise license lives, the surface that turns having agents into governing agents." />
+        <Venture n="06" name="AIOC" tag="enterprise AI operations" stage="Live · enterprise deployment" link="https://ologos.co/aioc/"
+          what="Enterprise AI Operations Center: a governed AI operations layer, deployed for enterprise customers, that sits above commercial AI platforms without ever depending on one."
+          sowhat="Enterprises are choosing between vendor lock-in and rebuilding everything themselves. AIOC proves a third path: your own governed control plane, commercial models where they fit, sovereign self-hosted models where they don't, already delivered for a defense-sector customer's air-gapped environment." />
       </section>
 
       <section className="section section-mid">
         <p className="label" style={{marginBottom:"1.5rem"}}>Foundational IP &amp; Standards</p>
-        <Venture n="06" name="AIDE" stage="Public corpus + platform"
+        <Venture n="07" name="AIDE" stage="Public corpus + platform"
           what="The governed, auditable, model-agnostic AI reference architecture and its canonical standards (DEA, OrdSA, MxM, OAgents, AEON, AIDEX)."
           sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the ventures are its proof points." />
-        <Venture n="07" name="AICP" stage="Protocol"
+        <Venture n="08" name="AICP" stage="Protocol"
           what="Agent Identity Card Protocol: platform-mediated agent identity, tool injection, and work-lifecycle management."
           sowhat="Enterprises will not hand tools and data to agents they cannot identify. Foundational protocol IP for the trust layer of the agent economy." />
-        <Venture n="08" name="Nous" stage="Library"
+        <Venture n="09" name="Nous" stage="Library"
           what="Persistent agent memory architecture: three-tier, PostgreSQL plus SQLite plus embedded vector retrieval, with multi-agent isolation."
           sowhat="Memory is the unsolved hard part of reliable agents. A reusable, productizable layer that stands on its own." />
-        <Venture n="09" name="Eidolon + Ordinal" stage="Spec + reference impl"
+        <Venture n="10" name="Eidolon + Ordinal" stage="Spec + reference impl"
           what="A domain-agnostic PLM engine (phase gates, requirements tracing, ABAC) and a visual modeling language for AI-driven systems engineering."
           sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
       </section>
