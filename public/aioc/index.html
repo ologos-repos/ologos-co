@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIOC — Enterprise AI Operations Center | Ologos</title>
+<meta name="description" content="AIOC: a governed AI operations layer, deployed for enterprise customers, that sits above commercial AI platforms without ever depending on one.">
+<link rel="icon" href="../favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #1a1a1a !important; }
+  body {
+    background: #1a1a1a; color: #f0ede6; min-height: 100vh;
+    font-family: 'IBM Plex Sans', Georgia, serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 2.5rem; background: rgba(26,26,26,0.9); backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(240,237,230,0.12);
+  }
+  .nav-logo { display:flex; align-items:center; gap:0.6rem; font-family:'Playfair Display',serif; font-size:1.1rem; text-decoration:none; }
+  .nav-mark { height: 1.75rem; width: auto; display: block; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration:none; font-size:0.85rem; letter-spacing:0.02em; color: rgba(240,237,230,0.75); }
+  .nav-links a:hover { color: #f0ede6; }
+  .nav-cta { border: 1px solid rgba(240,237,230,0.3); padding: 0.5rem 1.1rem; border-radius: 999px; }
+  @media (max-width: 720px) { .nav-links { display:none; } .nav { padding: 1.25rem 1.5rem; } }
+
+  .section { padding: 6rem 2.5rem; border-bottom: 1px solid rgba(240,237,230,0.12); max-width: 1200px; margin: 0 auto; }
+  .section-mid { background: #222222; max-width: none; }
+  .section-mid > .inner { max-width: 1200px; margin: 0 auto; }
+  .label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; color: rgba(240,237,230,0.6); margin-bottom: 0.75rem; }
+  .heading { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; color: #f0ede6; }
+  .heading em { font-style: italic; color: rgba(240,237,230,0.7); }
+  .subhead { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 400; color: #f0ede6; margin-bottom: 1rem; }
+  .body-text { font-size: 1rem; font-weight: 300; line-height: 1.8; color: rgba(240,237,230,0.82); max-width: 720px; }
+  .callout { border-left: 2px solid #c8956a; padding: 0.4rem 0 0.4rem 1.25rem; margin: 1.5rem 0; font-size: 0.95rem; font-style: italic; color: rgba(240,237,230,0.75); max-width: 720px; }
+  .callout b { color: #c8956a; font-style: normal; }
+  .rule-item { padding: 2rem 0; border-top: 1px solid rgba(240,237,230,0.15); display: grid; grid-template-columns: 3rem 1fr; gap: 1.5rem; }
+  .rule-num { font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(240,237,230,0.5); padding-top: 0.15rem; }
+  .rule-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1rem; font-weight: 400; color: #f0ede6; margin-bottom: 0.4rem; }
+  .rule-body { font-size: 0.875rem; font-weight: 300; line-height: 1.65; color: rgba(240,237,230,0.72); }
+  table.compare { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; max-width: 900px; }
+  table.compare th { text-align: left; padding: 0.75rem 1rem; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,237,230,0.6); border-bottom: 1px solid rgba(240,237,230,0.25); font-weight: 500; }
+  table.compare td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(240,237,230,0.12); color: rgba(240,237,230,0.82); font-weight: 300; vertical-align: top; }
+  .pill { display: inline-block; font-size: 0.68rem; font-weight: 500; padding: 0.2rem 0.65rem; border-radius: 999px; letter-spacing: 0.04em; }
+  .pill-live { background: rgba(80,160,120,0.15); color: #7fc9a0; }
+  .pill-roadmap { background: rgba(200,149,106,0.15); color: #c8956a; }
+  .quote { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 1.15rem; line-height: 1.5; color: #f0ede6; max-width: 720px; margin-bottom: 0.6rem; }
+  .quote-attr { font-size: 0.8rem; color: rgba(240,237,230,0.5); margin-bottom: 2rem; }
+  .cta { display: inline-block; margin-top: 1.5rem; padding: 0.85rem 1.75rem; border-radius: 999px; background: #c8956a; color: #1a1a1a; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+  .footer { padding: 3rem 2.5rem; text-align: center; color: rgba(240,237,230,0.4); font-size: 0.8rem; }
+  .footer a { color: rgba(240,237,230,0.6); text-decoration: none; }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="https://ologos.co/"><img src="../ologos-mark.png" alt="Ologos" class="nav-mark"><span>Ologos</span></a>
+    <ul class="nav-links">
+      <li><a href="https://ologos.co/">Ventures</a></li>
+      <li><a href="mailto:contact@telogos.ai" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="section" style="padding-top:8rem; border-bottom:1px solid rgba(240,237,230,0.12);">
+    <p class="label">Ventures &nbsp;/&nbsp; AIOC</p>
+    <h1 class="heading" style="max-width:820px; margin-top:1rem;">Enterprise AI Operations Center — <em>governed, not vendor-locked.</em></h1>
+    <p class="body-text" style="margin-top:1.75rem;">
+      A governed AI operations layer, proven out for enterprise customers, that sits above commercial AI platforms
+      without ever depending on one. Demonstrated as a working proof of concept for a highly regulated enterprise
+      customer, architected for that customer's air-gapped environment — not a hypothetical.
+    </p>
+    <a class="cta" href="mailto:contact@telogos.ai?subject=AIOC%20discovery%20call">Start a discovery call &rarr;</a>
+  </section>
+
+  <section class="section">
+    <p class="label">Why now</p>
+    <h2 class="subhead">Project Glasswing proves frontier models can now find and exploit vulnerabilities faster than human teams — on both sides of the fight.</h2>
+    <p class="body-text">
+      Tens of thousands of high-severity vulnerabilities have already been found industry-wide by frontier-model-driven
+      research. This is a live capability shift, not a future risk — and it's exactly why AI operations maturity
+      can't wait for the market to settle.
+    </p>
+  </section>
+
+  <section class="section-mid">
+    <div class="inner section">
+      <p class="label">What we built</p>
+      <h2 class="subhead">We didn't write a paper about this discipline — we built it, named it, and run our own operations on it.</h2>
+      <div class="rule-item">
+        <span class="rule-num">01</span>
+        <div><div class="rule-title">OLogic</div><div class="rule-body">The governed behavioral envelope that turns a raw model into a trustworthy operator: policy gates, persistent feedback memory, session protocols, independent QA before anything ships.</div></div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">02</span>
+        <div><div class="rule-title">AEON</div><div class="rule-body">The deployed orchestration core that instantiates this pattern for a given ecosystem — ours runs our own infrastructure today, end to end.</div></div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">03</span>
+        <div><div class="rule-title">The OAgents standard</div><div class="rule-body">A published, DOI-registered enterprise agent-operations framework (NIST AI RMF aligned) — documented, not a proprietary black box. We're the first reference consumer of our own standard.</div></div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-num">04</span>
+        <div><div class="rule-title">AHES — the AI Harness Engineering Standard</div><div class="rule-body">We didn't stop at building the discipline — we're formalizing it: a public, normative engineering standard for the AI harness itself (draft v0.1, not yet released for conformance use), covering sixteen harness domains from model gateways to evidence capture. <a href="https://github.com/ologos-repos/ai-harness-engineering" target="_blank" rel="noopener" style="color:#c8956a; text-decoration:none; border-bottom:1px solid rgba(200,149,106,0.4);">github.com/ologos-repos/ai-harness-engineering &rarr;</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="label">Industry validation</p>
+    <h2 class="subhead" style="margin-bottom:2rem;">The industry independently reached the same conclusion.</h2>
+    <p class="quote">&ldquo;ROI comes from strong intent: define the outcomes, embed agents deep in core workflows, and redesign operating models around them.&rdquo;</p>
+    <p class="quote-attr">— McKinsey, &ldquo;Seizing the Agentic AI Advantage,&rdquo; June 2025</p>
+    <p class="quote">&ldquo;Whoever controls AI governance and orchestration across the enterprise captures a lot of the value in an agentic future.&rdquo;</p>
+    <p class="quote-attr">— Bill McDermott, CEO, ServiceNow / Derek du Preez, diginomica, November 2025</p>
+    <p class="body-text">
+      Microsoft, Salesforce, and ServiceNow lead by fusing orchestration and governance into one platform. Palantir
+      earns defense-grade trust via a disciplined operations layer, backed by DoD Impact Level 6 accreditation. AWS
+      and Google are building the same layer from the infrastructure side. The pattern holds: the orchestration
+      layer, not the model, is where enterprises are choosing to consolidate trust.
+    </p>
+  </section>
+
+  <section class="section">
+    <p class="label">Why it has to be your own layer</p>
+    <h2 class="subhead">Not a vendor's — yours.</h2>
+    <p class="body-text">
+      No commercial platform operates natively across data-sovereignty boundaries or inside a disconnected enclave.
+      Our delivery model sits above and encapsulates whichever commercial platforms already fit your environment —
+      never letting any one of them become your control plane.
+    </p>
+    <table class="compare">
+      <tr><th>Model population</th><th>Where it fits</th></tr>
+      <tr><td>Commercial models &amp; coding assistants</td><td>Wherever they safely and compliantly fit your environment</td></tr>
+      <tr><td>Self-hosted open-weight models</td><td>Sovereign, air-gap-capable, fully disconnected where required</td></tr>
+    </table>
+    <p class="callout"><b>OPEA (Linux Foundation)</b> validates the same instinct industry-wide: open, multi-provider, composable systems, not single-vendor lock-in. Our own architecture is built the same way.</p>
+  </section>
+
+  <section class="section-mid">
+    <div class="inner section">
+      <p class="label">Proven as a working prototype, not theoretical</p>
+      <h2 class="subhead">Demonstrated for a real enterprise customer — architected for the hardest environment there is.</h2>
+      <p class="body-text" style="margin-bottom:1.5rem;">
+        A highly regulated enterprise customer (case details anonymized; referenceable under NDA). The engagement
+        stood up a working proof of concept of a full AI-centric Digital Ecosystem, purpose-built and architected
+        from day one to be portable into the customer's own air-gapped enclave, rather than retrofitted for it later.
+      </p>
+      <table class="compare">
+        <tr><th>What the engagement proved</th><th>Why it matters to you</th></tr>
+        <tr><td>Architected for portability into a fully air-gapped, customer-owned enclave</td><td>Data sovereignty and export-control requirements are designed in from the start</td></tr>
+        <tr><td>Domain-specific orchestrators, not one monolith</td><td>Each business function gets governed AI shaped to its own workflows</td></tr>
+        <tr><td>A governed identity/authority layer spanning every surface</td><td>Every action is attributable and auditable from day one</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="label">Available now vs. roadmap</p>
+    <h2 class="subhead">We tell customers the truth about what's built versus what's coming.</h2>
+    <table class="compare">
+      <tr><th>Capability</th><th>Status</th></tr>
+      <tr><td>Governed identity, authority &amp; audit layer (OLogic)</td><td><span class="pill pill-live">Available now</span></td></tr>
+      <tr><td>Commercial-model governed dispatch</td><td><span class="pill pill-live">Available now</span></td></tr>
+      <tr><td>Domain-orchestrator pattern</td><td><span class="pill pill-live">Available now</span></td></tr>
+      <tr><td>Air-gapped / disconnected deployment architecture</td><td><span class="pill pill-live">Available now</span></td></tr>
+      <tr><td>Certified self-hosted open-weight substrate, running disconnected (per engagement)</td><td><span class="pill pill-roadmap">Scoped per engagement</span></td></tr>
+      <tr><td>Direct integration with your existing ITSM / identity stack</td><td><span class="pill pill-roadmap">Scoped per engagement</span></td></tr>
+    </table>
+  </section>
+
+  <section class="section-mid">
+    <div class="inner section">
+      <p class="label">The Ologos difference</p>
+      <h2 class="subhead">One architect plus one AI delivers full-platform operations.</h2>
+      <table class="compare">
+        <tr><th>Model</th><th>Trade-off</th></tr>
+        <tr><td>Managed platform (Microsoft-class)</td><td>Low ops burden, but you trade control for convenience and pay per-seat indefinitely</td></tr>
+        <tr><td>Traditional open source</td><td>Full control, but you need rare specialist talent to operate it</td></tr>
+        <tr><td><b>Ologos: one architect + one AI</b></td><td><b>Full control, full ops coverage — the AI is the generalist engineer</b></td></tr>
+      </table>
+      <p class="body-text">
+        This is how we run our own multi-service infrastructure today — SSO, networking, container platforms,
+        scheduled autonomous operations, security hardening — at what would normally be 3-5 person platform-team
+        output, from one architect directing one AI. That's the operating model we bring to your engagement, not
+        just the technology.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="border-bottom:none; text-align:center;">
+    <p class="label">What we're proposing</p>
+    <h2 class="heading" style="max-width:700px; margin:0 auto 1.5rem;">Not a platform purchase. <em>A scoped pilot.</em></h2>
+    <p class="body-text" style="margin:0 auto 1.5rem;">
+      A short discovery call — 30 minutes — to map your highest-friction operational workflow onto this pattern and
+      scope a bounded pilot with clear exit criteria. You keep what works; we adjust what doesn't.
+    </p>
+    <a class="cta" href="mailto:contact@telogos.ai?subject=AIOC%20discovery%20call">Start a discovery call &rarr;</a>
+  </section>
+
+  <footer class="footer">
+    <div>© <span id="y"></span> Ologos &nbsp;·&nbsp; <a href="https://ologos.co/">ologos.co</a> &nbsp;·&nbsp; <a href="mailto:contact@telogos.ai">contact@telogos.ai</a></div>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
