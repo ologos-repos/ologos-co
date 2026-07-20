@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import HeroField from "./HeroField.jsx";
 
 if (typeof document !== "undefined") {
   const existing = document.getElementById("ologos-fonts");
@@ -75,10 +76,20 @@ const css = `
 
   /* HERO */
   .hero {
+    position: relative;
+    z-index: 0; /* establishes a stacking context so .hero-field's z-index: -1 stays scoped to the hero, instead of escaping behind the whole page */
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: space-between;
     padding: 7rem 2.5rem 5rem;
     border-bottom: 1px solid rgba(240,237,230,0.15);
+  }
+  .hero-field {
+    position: absolute; inset: 0; z-index: -1;
+    pointer-events: none;
+  }
+  .hero-field canvas { display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-field { opacity: 0.6; }
   }
   .hero h1 {
     font-family: 'Playfair Display', Georgia, serif;
@@ -388,6 +399,7 @@ function HomePage() {
   return (
     <div className="page">
       <section className="hero">
+        <HeroField />
         <h1>
           An innovation factory<br />
           <em>building systems</em><br />
