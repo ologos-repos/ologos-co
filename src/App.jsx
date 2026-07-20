@@ -74,6 +74,54 @@ const css = `
     padding-bottom: 1px;
   }
 
+  /* MOBILE NAV DRAWER */
+  .nav-burger {
+    display: none;
+    flex-direction: column; justify-content: center; gap: 5px;
+    width: 2.25rem; height: 2.25rem;
+    background: transparent; border: none; cursor: pointer; padding: 0;
+  }
+  .nav-burger span {
+    display: block; width: 100%; height: 1px;
+    background: #f0ede6; transition: transform 0.25s, opacity 0.25s;
+  }
+  .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav-drawer-overlay {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(10,10,10,0.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .nav-drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .nav-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 151;
+    width: min(80vw, 320px);
+    background: #1a1a1a;
+    border-left: 1px solid rgba(240,237,230,0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex; flex-direction: column;
+    padding: 1.5rem 2rem 2rem;
+  }
+  .nav-drawer.open { transform: translateX(0); }
+  .nav-drawer-close {
+    align-self: flex-end;
+    background: transparent; border: none; color: #f0ede6;
+    font-size: 1.6rem; line-height: 1; cursor: pointer;
+    padding: 0.5rem; margin: -0.5rem -0.5rem 2rem 0;
+  }
+  .nav-drawer-links { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+  .nav-drawer-links a {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem; font-weight: 400;
+    color: #f0ede6; text-decoration: none; cursor: pointer;
+  }
+  .nav-drawer-links a.nav-cta { color: #c8956a !important; border-bottom: none; }
+
   /* HERO */
   .hero {
     position: relative;
@@ -347,6 +395,7 @@ const css = `
     .team-card { border-bottom: 1px solid rgba(26,26,26,0.1); }
     .process-col { border-left: none; border-top: 1px solid rgba(240,237,230,0.12); }
     .nav-links { display: none; }
+    .nav-burger { display: flex; }
   }
   @media (max-width: 600px) {
     .section { padding: 4rem 1.5rem; }
@@ -369,28 +418,76 @@ const PAGE_PATHS = {
 };
 const PATH_TO_PAGE = Object.fromEntries(Object.entries(PAGE_PATHS).map(([k, v]) => [v, k]));
 
+const NAV_LINKS = [["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]];
+
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    const onResize = () => { if (window.innerWidth > 900) setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [menuOpen]);
+
+  const go = (p) => { setMenuOpen(false); navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
+
   return (
-    <nav className={`nav${scrolled ? " scrolled" : ""}`}>
-      <div className="nav-logo" onClick={() => go("home")}>
-        <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="nav-mark" />
-        <span>Ologos</span>
-      </div>
-      <ul className="nav-links">
-        {[["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]].map(([p,label]) => (
-          <li key={p}><a onClick={() => go(p)}>{label}</a></li>
-        ))}
-        <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
-      </ul>
-    </nav>
+    <>
+      <nav className={`nav${scrolled ? " scrolled" : ""}`}>
+        <div className="nav-logo" onClick={() => go("home")}>
+          <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="nav-mark" />
+          <span>Ologos</span>
+        </div>
+        <ul className="nav-links">
+          {NAV_LINKS.map(([p,label]) => (
+            <li key={p}><a onClick={() => go(p)}>{label}</a></li>
+          ))}
+          <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
+        </ul>
+        <button
+          className={`nav-burger${menuOpen ? " open" : ""}`}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="nav-drawer"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span /><span /><span />
+        </button>
+      </nav>
+      <div
+        className={`nav-drawer-overlay${menuOpen ? " open" : ""}`}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
+      />
+      <aside id="nav-drawer" className={`nav-drawer${menuOpen ? " open" : ""}`} aria-hidden={!menuOpen}>
+        <button className="nav-drawer-close" aria-label="Close menu" tabIndex={menuOpen ? undefined : -1} onClick={() => setMenuOpen(false)}>×</button>
+        <ul className="nav-drawer-links">
+          {NAV_LINKS.map(([p,label]) => (
+            <li key={p}><a onClick={() => go(p)}>{label}</a></li>
+          ))}
+          <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
+        </ul>
+      </aside>
+    </>
   );
 }
 
