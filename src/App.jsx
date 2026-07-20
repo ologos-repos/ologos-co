@@ -655,13 +655,16 @@ function VenturesPage() {
         <Venture n="07" name="AIDE" stage="Public corpus + platform"
           what="The governed, auditable, model-agnostic AI reference architecture and its canonical standards (DEA, OrdSA, MxM, OAgents, AEON, AIDEX)."
           sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the ventures are its proof points." />
-        <Venture n="08" name="AICP" stage="Protocol"
+        <Venture n="08" name="AHES" tag="AI Harness Engineering Standard" stage="Draft standard v0.1 · public" link="https://github.com/ologos-repos/ai-harness-engineering"
+          what="A normative engineering standard for the AI harness itself -- the control environment surrounding one or more AI models -- across sixteen harness domains, from model gateways to evidence capture."
+          sowhat="Harness engineering is the discipline every AIOC engagement runs on. AHES formalizes it into numbered, checkable requirements instead of an essay -- draft v0.1, not yet released for conformance use, developed openly rather than kept as an internal trade secret." />
+        <Venture n="09" name="AICP" stage="Protocol"
           what="Agent Identity Card Protocol: platform-mediated agent identity, tool injection, and work-lifecycle management."
           sowhat="Enterprises will not hand tools and data to agents they cannot identify. Foundational protocol IP for the trust layer of the agent economy." />
-        <Venture n="09" name="Nous" stage="Library"
+        <Venture n="10" name="Nous" stage="Library"
           what="Persistent agent memory architecture: three-tier, PostgreSQL plus SQLite plus embedded vector retrieval, with multi-agent isolation."
           sowhat="Memory is the unsolved hard part of reliable agents. A reusable, productizable layer that stands on its own." />
-        <Venture n="10" name="Eidolon + Ordinal" stage="Spec + reference impl"
+        <Venture n="11" name="Eidolon + Ordinal" stage="Spec + reference impl"
           what="A domain-agnostic PLM engine (phase gates, requirements tracing, ABAC) and a visual modeling language for AI-driven systems engineering."
           sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
       </section>
