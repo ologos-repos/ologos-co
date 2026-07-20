@@ -679,7 +679,7 @@ function VenturesPage() {
   );
 }
 
-const CONTACT_ENDPOINT = "https://forms.telogos.ai/contact";
+const CONTACT_ENDPOINT = "https://forms.ologos.co/contact";
 
 function ContactPage() {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
@@ -724,7 +724,7 @@ function ContactPage() {
             <p className="body-text" style={{marginBottom:"2.5rem"}}>
               Whether you're an investor evaluating our ventures, an enterprise client seeking AI-enabled capabilities, or a strategic acquirer exploring a portfolio fit -- we want to hear from you.
             </p>
-            {[["Email","contact@telogos.ai"],["Location","Fayetteville, Tennessee"]].map(([l,v]) => (
+            {[["Email","ologos-ai@ologos.co"],["Location","Fayetteville, Tennessee"]].map(([l,v]) => (
               <div key={l} style={{display:"flex",gap:"1.5rem",marginBottom:"1rem"}}>
                 <span style={{fontSize:"0.68rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(240,237,230,0.45)",paddingTop:"0.1rem",width:"70px",flexShrink:0}}>{l}</span>
                 <span style={{fontSize:"0.875rem",fontWeight:300,color:"rgba(240,237,230,0.82)"}}>{v}</span>
@@ -763,7 +763,7 @@ function ContactPage() {
                 <div className="field"><label>Message</label><textarea name="message" placeholder="What are you exploring?" required /></div>
                 {status === "error" && (
                   <p style={{fontSize:"0.8rem",fontWeight:300,color:"#F06B35",marginBottom:"1rem"}}>
-                    Something went wrong sending your message — please email contact@telogos.ai directly.
+                    Something went wrong sending your message — please email ologos-ai@ologos.co directly.
                   </p>
                 )}
                 <button type="submit" className="btn-solid" disabled={status === "sending"}
