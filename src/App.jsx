@@ -933,10 +933,28 @@ function ContactPage() {
   );
 }
 
+const PAGE_META = {
+  home: { title: "Ologos — Innovation Factory", description: "Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture." },
+  ventures: { title: "Ventures — Ologos", description: "The Ologos portfolio: a venture engine attacking the agent economy from the standard down to the product, every project sharing one fingerprint -- governed, auditable, sovereign AI." },
+  research: { title: "Thought Leadership — Ologos", description: "Published, DOI-registered AI research from the Ologos partners: the AIDE canon (AEON, AIDEX, OAgents, and related standards) and the HGC³AE² / Managing Agentics Ops corpus." },
+  about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures -- structured for investor diligence, government procurement, or strategic acquisition from day one." },
+  philosophy: { title: "Philosophy — Ologos", description: "Logos -- the Greek for word, reason, rational principle -- is the organizing conviction of the enterprise: agentic AI as amplification of human judgment, not replacement of it." },
+  team: { title: "Team — Ologos", description: "The Ologos Corp leadership team: systems and AI architects, technology operators, and an IP strategist, with deep experience in regulated federal and defense environments." },
+  contact: { title: "Contact — Ologos", description: "Get in touch with Ologos -- for investors evaluating our ventures, enterprise clients seeking AI-enabled capabilities, or strategic acquirers exploring a portfolio fit." },
+};
+
 export default function App() {
   const [page, setPage] = useState("home");
   const go = (p) => { setPage(p); window.scrollTo(0,0); };
   const pages = { home:<HomePage setPage={setPage}/>, ventures:<VenturesPage/>, research:<ThoughtLeadershipPage/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
+
+  useEffect(() => {
+    const meta = PAGE_META[page] || PAGE_META.home;
+    document.title = meta.title;
+    const descTag = document.querySelector('meta[name="description"]');
+    if (descTag) descTag.setAttribute("content", meta.description);
+  }, [page]);
+
   return (
     <div className="site-root">
       <style>{css}</style>
