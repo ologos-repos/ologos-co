@@ -328,7 +328,7 @@ const css = `
     display: flex; align-items: center; gap: 0.55rem;
   }
   .footer-mark { height: 1.5rem; width: auto; display: block; }
-  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2rem; list-style: none; }
   .footer-links a {
     font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
     color: rgba(240,237,230,0.45); text-decoration: none; cursor: pointer;
@@ -354,6 +354,7 @@ const css = `
     .hero { padding: 6rem 1.5rem 3.5rem; }
     .team-grid { grid-template-columns: 1fr; }
     .footer { flex-direction: column; }
+    .footer-links { gap: 0.75rem 1.25rem; }
   }
 `;
 
