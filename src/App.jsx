@@ -177,6 +177,7 @@ const css = `
     border-top: 1px solid rgba(240,237,230,0.15);
     display: grid; grid-template-columns: 3rem 1fr; gap: 1.5rem;
   }
+  .rule-item > div { min-width: 0; }
   .rule-item-light { border-color: rgba(26,26,26,0.12); }
   .rule-num {
     font-size: 0.72rem; letter-spacing: 0.06em;
@@ -602,7 +603,7 @@ function VenturesPage() {
             {name}
             {tag && <em style={{fontStyle:"normal",color:"#c8956a",fontSize:"0.68rem",marginLeft:"0.65rem",textTransform:"uppercase",letterSpacing:"0.1em"}}>{tag}</em>}
           </div>
-          {stage && <span style={{fontSize:"0.7rem",textTransform:"uppercase",letterSpacing:"0.08em",color:"rgba(240,237,230,0.4)",whiteSpace:"nowrap"}}>{stage}</span>}
+          {stage && <span style={{fontSize:"0.7rem",textTransform:"uppercase",letterSpacing:"0.08em",color:"rgba(240,237,230,0.4)"}}>{stage}</span>}
         </div>
         <div className="rule-body" style={{marginTop:"0.45rem"}}>{what}</div>
         <div className="rule-body" style={{marginTop:"0.5rem"}}>
