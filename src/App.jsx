@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 
 if (typeof document !== "undefined") {
   const existing = document.getElementById("ologos-fonts");
@@ -345,14 +346,26 @@ const css = `
   }
 `;
 
-function Nav({ setPage }) {
+const PAGE_PATHS = {
+  home: "/",
+  ventures: "/ventures",
+  research: "/thought-leadership",
+  about: "/about",
+  philosophy: "/philosophy",
+  team: "/team",
+  contact: "/contact",
+};
+const PATH_TO_PAGE = Object.fromEntries(Object.entries(PAGE_PATHS).map(([k, v]) => [v, k]));
+
+function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const go = (p) => { setPage(p); window.scrollTo(0,0); };
+  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
   return (
     <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <div className="nav-logo" onClick={() => go("home")}>
@@ -369,8 +382,9 @@ function Nav({ setPage }) {
   );
 }
 
-function HomePage({ setPage }) {
-  const go = (p) => { setPage(p); window.scrollTo(0,0); };
+function HomePage() {
+  const navigate = useNavigate();
+  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
   return (
     <div className="page">
       <section className="hero">
@@ -943,23 +957,33 @@ const PAGE_META = {
   contact: { title: "Contact — Ologos", description: "Get in touch with Ologos -- for investors evaluating our ventures, enterprise clients seeking AI-enabled capabilities, or strategic acquirers exploring a portfolio fit." },
 };
 
-export default function App() {
-  const [page, setPage] = useState("home");
-  const go = (p) => { setPage(p); window.scrollTo(0,0); };
-  const pages = { home:<HomePage setPage={setPage}/>, ventures:<VenturesPage/>, research:<ThoughtLeadershipPage/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
+function AppShell() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
 
   useEffect(() => {
+    const page = PATH_TO_PAGE[location.pathname] || "home";
     const meta = PAGE_META[page] || PAGE_META.home;
     document.title = meta.title;
     const descTag = document.querySelector('meta[name="description"]');
     if (descTag) descTag.setAttribute("content", meta.description);
-  }, [page]);
+  }, [location.pathname]);
 
   return (
     <div className="site-root">
       <style>{css}</style>
-      <Nav setPage={setPage} />
-      {pages[page]}
+      <Nav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/ventures" element={<VenturesPage />} />
+        <Route path="/thought-leadership" element={<ThoughtLeadershipPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/philosophy" element={<PhilosophyPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <footer className="footer">
         <div className="footer-logo">
           <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="footer-mark" />
@@ -973,5 +997,13 @@ export default function App() {
         <div className="footer-copy">© {new Date().getFullYear()} Ologos</div>
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   );
 }
