@@ -195,6 +195,32 @@ const css = `
   }
   .rule-body-dark { color: rgba(26,26,26,0.6); }
 
+  /* PRESS / IN THE NEWS */
+  .press-item {
+    display: block; max-width: 900px;
+    text-decoration: none; cursor: pointer;
+  }
+  .press-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    font-weight: 400; font-style: italic; line-height: 1.3;
+    letter-spacing: -0.01em; color: #f0ede6;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+  .press-item:hover .press-title { color: #c8956a; }
+  .press-note {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.7;
+    color: rgba(240,237,230,0.72);
+    max-width: 620px; margin-bottom: 1.25rem;
+  }
+  .press-meta {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(240,237,230,0.55);
+  }
+  .press-meta .arrow { transition: transform 0.2s; display: inline-block; margin-left: 0.3rem; }
+  .press-item:hover .press-meta .arrow { transform: translateX(3px); }
+
   /* PROCESS */
   .process-col {
     padding: 3rem 2.5rem;
@@ -427,6 +453,24 @@ function HomePage({ setPage }) {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"2.5rem"}}>In the News</p>
+        {[
+          {
+            title:"AI enthusiasm isn't AI readiness: Why mission clarity must come first",
+            href:"https://federalnewsnetwork.com/commentary/2026/07/ai-enthusiasm-isnt-ai-readiness-why-mission-clarity-must-come-first/",
+            note:"Ologos CISO Justin Kuiper on why mission clarity -- not technology enthusiasm -- is the real measure of AI readiness. The same conviction anchors every venture we build: no thesis, no build.",
+            meta:"Justin Kuiper · Federal News Network · July 2026",
+          },
+        ].map(p => (
+          <a className="press-item" key={p.href} href={p.href} target="_blank" rel="noopener noreferrer">
+            <div className="press-title">&ldquo;{p.title}&rdquo;</div>
+            <p className="press-note">{p.note}</p>
+            <p className="press-meta">{p.meta} <span className="arrow">→</span></p>
+          </a>
+        ))}
       </section>
     </div>
   );
