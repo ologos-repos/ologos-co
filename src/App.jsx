@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import HeroField from "./HeroField.jsx";
 
 if (typeof document !== "undefined") {
   const existing = document.getElementById("ologos-fonts");
@@ -72,12 +74,70 @@ const css = `
     padding-bottom: 1px;
   }
 
+  /* MOBILE NAV DRAWER */
+  .nav-burger {
+    display: none;
+    flex-direction: column; justify-content: center; gap: 5px;
+    width: 2.25rem; height: 2.25rem;
+    background: transparent; border: none; cursor: pointer; padding: 0;
+  }
+  .nav-burger span {
+    display: block; width: 100%; height: 1px;
+    background: #f0ede6; transition: transform 0.25s, opacity 0.25s;
+  }
+  .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav-drawer-overlay {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(10,10,10,0.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .nav-drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .nav-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 151;
+    width: min(80vw, 320px);
+    background: #1a1a1a;
+    border-left: 1px solid rgba(240,237,230,0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex; flex-direction: column;
+    padding: 1.5rem 2rem 2rem;
+  }
+  .nav-drawer.open { transform: translateX(0); }
+  .nav-drawer-close {
+    align-self: flex-end;
+    background: transparent; border: none; color: #f0ede6;
+    font-size: 1.6rem; line-height: 1; cursor: pointer;
+    padding: 0.5rem; margin: -0.5rem -0.5rem 2rem 0;
+  }
+  .nav-drawer-links { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+  .nav-drawer-links a {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem; font-weight: 400;
+    color: #f0ede6; text-decoration: none; cursor: pointer;
+  }
+  .nav-drawer-links a.nav-cta { color: #c8956a !important; border-bottom: none; }
+
   /* HERO */
   .hero {
+    position: relative;
+    z-index: 0; /* establishes a stacking context so .hero-field's z-index: -1 stays scoped to the hero, instead of escaping behind the whole page */
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: space-between;
     padding: 7rem 2.5rem 5rem;
     border-bottom: 1px solid rgba(240,237,230,0.15);
+  }
+  .hero-field {
+    position: absolute; inset: 0; z-index: -1;
+    pointer-events: none;
+  }
+  .hero-field canvas { display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-field { opacity: 0.6; }
   }
   .hero h1 {
     font-family: 'Playfair Display', Georgia, serif;
@@ -98,11 +158,14 @@ const css = `
   }
   .hero-actions { display: flex; gap: 1rem; flex-shrink: 0; }
 
-  /* tasteful "Explore our ventures" link under the headline */
+  /* tasteful "Explore our ventures" / "Explore our thought leadership" links under the headline */
+  .hero-explore-group {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
+    margin: -1.5rem 0 2rem;
+  }
   .hero-explore {
     display: inline-block;
     width: fit-content;
-    margin: -1.5rem 0 2rem;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.9rem; font-weight: 400;
     letter-spacing: 0.04em;
@@ -177,6 +240,7 @@ const css = `
     border-top: 1px solid rgba(240,237,230,0.15);
     display: grid; grid-template-columns: 3rem 1fr; gap: 1.5rem;
   }
+  .rule-item > div { min-width: 0; }
   .rule-item-light { border-color: rgba(26,26,26,0.12); }
   .rule-num {
     font-size: 0.72rem; letter-spacing: 0.06em;
@@ -194,6 +258,26 @@ const css = `
     color: rgba(240,237,230,0.72);
   }
   .rule-body-dark { color: rgba(26,26,26,0.6); }
+
+  /* compact citation list — Thought Leadership page */
+  .paper-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(240,237,230,0.08);
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1.5rem; flex-wrap: wrap;
+  }
+  .paper-item:last-child { border-bottom: none; }
+  .paper-title {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.5;
+    color: rgba(240,237,230,0.85); text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .paper-title:hover { color: #c8956a; border-color: rgba(200,149,106,0.5); }
+  .paper-note {
+    font-size: 0.72rem; letter-spacing: 0.04em; color: rgba(240,237,230,0.4);
+    white-space: nowrap; flex-shrink: 0;
+  }
 
   /* PRESS / IN THE NEWS */
   .press-item {
@@ -261,6 +345,8 @@ const css = `
     border-right: 1px solid rgba(26,26,26,0.1);
   }
   .team-card:last-child { border-right: none; }
+  .team-card:nth-child(4n) { border-right: none; }
+  .team-card:nth-child(n+5) { border-top: 1px solid rgba(26,26,26,0.1); }
   .team-init {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.8rem; font-weight: 400;
@@ -316,7 +402,7 @@ const css = `
     display: flex; align-items: center; gap: 0.55rem;
   }
   .footer-mark { height: 1.5rem; width: auto; display: block; }
-  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 2rem; list-style: none; }
   .footer-links a {
     font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
     color: rgba(240,237,230,0.45); text-decoration: none; cursor: pointer;
@@ -335,6 +421,7 @@ const css = `
     .team-card { border-bottom: 1px solid rgba(26,26,26,0.1); }
     .process-col { border-left: none; border-top: 1px solid rgba(240,237,230,0.12); }
     .nav-links { display: none; }
+    .nav-burger { display: flex; }
   }
   @media (max-width: 600px) {
     .section { padding: 4rem 1.5rem; }
@@ -342,47 +429,113 @@ const css = `
     .hero { padding: 6rem 1.5rem 3.5rem; }
     .team-grid { grid-template-columns: 1fr; }
     .footer { flex-direction: column; }
+    .footer-links { gap: 0.75rem 1.25rem; }
   }
 `;
 
-function Nav({ setPage }) {
+const PAGE_PATHS = {
+  home: "/",
+  ventures: "/ventures",
+  research: "/thought-leadership",
+  about: "/about",
+  philosophy: "/philosophy",
+  team: "/team",
+  contact: "/contact",
+};
+const PATH_TO_PAGE = Object.fromEntries(Object.entries(PAGE_PATHS).map(([k, v]) => [v, k]));
+
+const NAV_LINKS = [["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]];
+
+function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const go = (p) => { setPage(p); window.scrollTo(0,0); };
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    const onResize = () => { if (window.innerWidth > 900) setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [menuOpen]);
+
+  const go = (p) => { setMenuOpen(false); navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
+
   return (
-    <nav className={`nav${scrolled ? " scrolled" : ""}`}>
-      <div className="nav-logo" onClick={() => go("home")}>
-        <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="nav-mark" />
-        <span>Ologos</span>
-      </div>
-      <ul className="nav-links">
-        {["ventures","about","philosophy","team"].map(p => (
-          <li key={p}><a onClick={() => go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
-        ))}
-        <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
-      </ul>
-    </nav>
+    <>
+      <nav className={`nav${scrolled ? " scrolled" : ""}`}>
+        <div className="nav-logo" onClick={() => go("home")}>
+          <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="nav-mark" />
+          <span>Ologos</span>
+        </div>
+        <ul className="nav-links">
+          {NAV_LINKS.map(([p,label]) => (
+            <li key={p}><a onClick={() => go(p)}>{label}</a></li>
+          ))}
+          <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
+        </ul>
+        <button
+          className={`nav-burger${menuOpen ? " open" : ""}`}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="nav-drawer"
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          <span /><span /><span />
+        </button>
+      </nav>
+      <div
+        className={`nav-drawer-overlay${menuOpen ? " open" : ""}`}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
+      />
+      <aside id="nav-drawer" className={`nav-drawer${menuOpen ? " open" : ""}`} aria-hidden={!menuOpen}>
+        <button className="nav-drawer-close" aria-label="Close menu" tabIndex={menuOpen ? undefined : -1} onClick={() => setMenuOpen(false)}>×</button>
+        <ul className="nav-drawer-links">
+          {NAV_LINKS.map(([p,label]) => (
+            <li key={p}><a onClick={() => go(p)}>{label}</a></li>
+          ))}
+          <li><a className="nav-cta" onClick={() => go("contact")}>Contact</a></li>
+        </ul>
+      </aside>
+    </>
   );
 }
 
-function HomePage({ setPage }) {
-  const go = (p) => { setPage(p); window.scrollTo(0,0); };
+function HomePage() {
+  const navigate = useNavigate();
+  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
   return (
     <div className="page">
       <section className="hero">
+        <HeroField />
         <h1>
           An innovation factory<br />
           <em>building systems</em><br />
           ready for what's next.
         </h1>
-        <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
+        <div className="hero-explore-group">
+          <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
+          <a className="hero-explore" onClick={() => go("research")}>Explore our thought leadership <span className="arrow">→</span></a>
+        </div>
         <div className="hero-meta">
           <p className="hero-desc">
-            Ologos is an LLC think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture -- structured, mature, and ready for the next phase.
+            Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture, structured, mature, and ready for the next phase.
           </p>
           <div className="hero-actions">
             <button className="btn-ghost" onClick={() => go("about")}>How We Work</button>
@@ -401,7 +554,7 @@ function HomePage({ setPage }) {
           </div>
           <div>
             <p className="body-text" style={{marginBottom:"1.25rem"}}>
-              Ologos does not take outside capital at the parent level. We are the engine that produces investment-ready ventures. When an idea reaches maturity, we spin it off as a clean S-Corp with its own cap table, IP assignments, and governance structure.
+              Ologos is the engine that produces investment-ready ventures. When an idea reaches maturity, we spin it off as an independent company with its own cap table, assigned IP, and governance structure.
             </p>
             <p className="body-text">
               The acquirer buys the venture. Ologos walks away capitalized and ready to build the next one.
@@ -418,7 +571,7 @@ function HomePage({ setPage }) {
           {[
             ["01","Thesis Formation","Every initiative begins with a written, falsifiable thesis: the structural gap, the differentiated approach, the exit path. No thesis, no build."],
             ["02","Collaborative Incubation","Cross-functional teams work iteratively -- combining domain expertise, agentic AI tooling, and Enterprise-grade systems architecture methodology."],
-            ["03","Venture Spin-off","Mature ideas become independent S-Corps. Clean cap tables, assigned IP, and documented governance -- structured for diligence from day one."],
+            ["03","Venture Spin-off","Mature ideas become independent companies. Clean cap tables, assigned IP, and documented governance, structured for diligence from day one."],
           ].map(([n,t,b]) => (
             <div className="process-col" key={n}>
               <span className="process-num">{n}</span>
@@ -489,8 +642,8 @@ function AboutPage() {
       <section className="section">
         <div className="two-col">
           <div>
-            {["Ologos is an LLC think tank and innovation factory. We do not take outside capital at the Ologos level -- we are the capital-efficient incubation engine that produces the ventures that do.",
-              "When an idea matures, we spin it off as an independent S-Corp: its own cap table, its own IP assignments, its own governance. The venture is structured for investor diligence, government procurement, or strategic acquisition.",
+            {["Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures.",
+              "When an idea matures, we spin it off as an independent company: its own cap table, its own IP assignments, its own governance. The venture is structured for investor diligence, government procurement, or strategic acquisition.",
               "The model is deliberate. Ologos absorbs the early-stage uncertainty so each venture can enter the market clean."
             ].map((t,i) => <p key={i} className="body-text" style={{marginBottom:"1.25rem"}}>{t}</p>)}
           </div>
@@ -578,6 +731,7 @@ function TeamPage() {
     {init:"JL",name:"Jay Longmire",role:"CFO / COO",bio:"Technology consultant and CEO of Peak TSP with two decades of experience bridging executive objectives and real-world technical execution. Jay's work spans software implementation, custom development, IT consulting, and business-process improvement -- with an MBA and hands-on technical depth that lets him operate fluently across both boardroom and infrastructure. His military background as an automation officer with the Mississippi Army National Guard, including deployments to Iraq, brings a disciplined, mission-focused approach to operational leadership and execution."},
     {init:"JK",name:"Justin Kuiper, CISSP",role:"CISO",bio:"Cybersecurity and space systems architect with two decades of experience across aerospace, defense, high-performance computing, AI, and hybrid cloud infrastructure. Justin currently serves as Director of Architecture & Engineering at an award-winning aerospace and defense value-added reseller, where he leads secure cloud and infrastructure solutions for complex, multi-tenant environments supporting AI/ML workloads, defense missions, and critical infrastructure. His approach is secure-by-design from the ground up -- connecting technical rigor directly to operational outcomes."},
     {init:"JDL",name:"James D. Longmire",role:"CIO / CMO",bio:"James D. (JD) Longmire is an award-winning technology strategist, aerospace and defense fellow, and Senior Systems Architect with more than 30 years in enterprise and mission IT. He specializes in designing and governing federated digital ecosystems for regulated, mission-critical environments, spanning AI-enabled enterprise platforms, agentic systems, digital thread strategy, architecture governance, and large-scale infrastructure modernization. In parallel, he conducts independent research on the capabilities and limits of generative AI and the architectural requirements for trustworthy, accountable systems. His guiding principle is consistent: architecture must be technically rigorous, operationally effective, governable at scale, and aligned with human responsibility."},
+    {init:"CAS",name:"C A Schlecht, JD, PhD",role:"CLO",bio:"Patent attorney and IP strategist with a PhD in chemistry and 15+ years of protecting innovation across life sciences, pharmaceuticals, mechanical engineering, CS/AI, and medtech. As founder of Midtown Intellectual Property, PC, C A leads patent preparation and prosecution, trademark and copyright registration, portfolio management, enforcement, and corporate structuring for startups and established companies. He brings that same rigor to Ologos, having served as Chief Legal Officer for a clinical-stage device company. His orientation is consistent: intellectual property should move ideas from the benchtop to market, cleanly protected and ready for diligence."},
   ];
   return (
     <div className="page">
@@ -643,7 +797,7 @@ function VenturesPage() {
             {name}
             {tag && <em style={{fontStyle:"normal",color:"#c8956a",fontSize:"0.68rem",marginLeft:"0.65rem",textTransform:"uppercase",letterSpacing:"0.1em"}}>{tag}</em>}
           </div>
-          {stage && <span style={{fontSize:"0.7rem",textTransform:"uppercase",letterSpacing:"0.08em",color:"rgba(240,237,230,0.4)",whiteSpace:"nowrap"}}>{stage}</span>}
+          {stage && <span style={{fontSize:"0.7rem",textTransform:"uppercase",letterSpacing:"0.08em",color:"rgba(240,237,230,0.4)"}}>{stage}</span>}
         </div>
         <div className="rule-body" style={{marginTop:"0.45rem"}}>{what}</div>
         <div className="rule-body" style={{marginTop:"0.5rem"}}>
@@ -674,29 +828,38 @@ function VenturesPage() {
         <Venture n="01" name="CrewPort" tag="flagship" stage="Live" link="https://crewport.ai"
           what="Marketplace for AI agent crews, with contract enforcement as a service."
           sowhat="The agent economy is exploding, but there is no trusted layer to hire, compose, and hold accountable teams of AI agents. CrewPort is that marketplace, with enforceable contracts as the trust mechanism. The toll road for multi-agent work." />
-        <Venture n="02" name="OlogosOffice" stage="Live · demo on request"
+        <Venture n="02" name="AIOC" tag="enterprise AI operations" stage="Proof of concept · enterprise engagement" link="https://ologos.co/aioc/"
+          what="Enterprise AI Operations Center: a governed AI operations layer, proven out for enterprise customers, that sits above commercial AI platforms without ever depending on one."
+          sowhat="Enterprises are choosing between vendor lock-in and rebuilding everything themselves. AIOC proves a third path: your own governed control plane, commercial models where they fit, sovereign self-hosted models where they don't, already demonstrated in a working proof of concept for a highly regulated enterprise customer, with the sovereign self-hosted path architected and requirement-accepted for that customer's air-gapped environment." />
+        <Venture n="03" name="OlogosOffice" stage="Live · demo on request"
           what="Ologos' own gated, self-hosted, AI-native collaboration and productivity suite: mail, files, office, chat, meet, git and CI, search, and an AI copilot."
           sowhat="Regulated, defense, and sovereignty-bound orgs cannot put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof." />
-        <Venture n="03" name="DEXter" tag="the user console" stage="Live"
+        <Venture n="04" name="SKIPJACK" stage="In development"
+          what="A zero-trust, edge-first agentic platform for disconnected and contested environments. One governed substrate that carries identity, memory, assurance, just-in-time privilege, and behavioral observability for fleets of AI agents, built to run where the network is degraded, intermittent, or absent."
+          sowhat="Every agent-security tool on the market assumes the cloud is reachable. Agent identity is the problem nobody has solved, and only one percent of organizations have adopted just-in-time privileged access. SKIPJACK is built for exactly that gap: privilege that exists only while it is observed and fails closed when visibility is lost, a custody and freshness layer that stamps the age of every piece of data, and observation of agents from beneath the runtime rather than from their own self-reports. The hyperscalers are structurally weakest here because they are built for connectivity and scale. That is the wedge." />
+        <Venture n="05" name="DEXter" tag="the user console" stage="Live"
           what="Governed, OAuth-gated GUI agent console and artifact engine for the Ologos ecosystem."
           sowhat="The usable front door to governed agents, the copilot UX that makes the platform sellable to non-engineers. Half of the human control layer." />
-        <Venture n="04" name="Ologos Operator" tag="the control plane" stage="Live"
+        <Venture n="06" name="Ologos Operator" tag="the control plane" stage="Live"
           what="Super-admin operator console for a governed agent fleet: a gated web UI to launch, authenticate, stream, persist, and audit agent sessions across the org."
           sowhat="Every enterprise that deploys AI agents at scale needs one governed pane of glass to run and control them, not a pile of terminals. The control plane is where the recurring enterprise license lives, the surface that turns having agents into governing agents." />
       </section>
 
       <section className="section section-mid">
         <p className="label" style={{marginBottom:"1.5rem"}}>Foundational IP &amp; Standards</p>
-        <Venture n="05" name="AIDE" stage="Public corpus + platform"
+        <Venture n="07" name="AIDE" stage="Public corpus + platform"
           what="The governed, auditable, model-agnostic AI reference architecture and its canonical standards (DEA, OrdSA, MxM, OAgents, AEON, AIDEX)."
           sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the ventures are its proof points." />
-        <Venture n="06" name="AICP" stage="Protocol"
+        <Venture n="08" name="AHES" tag="AI Harness Engineering Standard" stage="Draft standard v0.1 · public" link="https://github.com/ologos-repos/ai-harness-engineering"
+          what="A normative engineering standard for the AI harness itself -- the control environment surrounding one or more AI models -- across sixteen harness domains, from model gateways to evidence capture."
+          sowhat="Harness engineering is the discipline every AIOC engagement runs on. AHES formalizes it into numbered, checkable requirements instead of an essay -- draft v0.1, not yet released for conformance use, developed openly rather than kept as an internal trade secret." />
+        <Venture n="09" name="AICP" stage="Protocol"
           what="Agent Identity Card Protocol: platform-mediated agent identity, tool injection, and work-lifecycle management."
           sowhat="Enterprises will not hand tools and data to agents they cannot identify. Foundational protocol IP for the trust layer of the agent economy." />
-        <Venture n="07" name="Nous" stage="Library"
+        <Venture n="10" name="Nous" stage="Library"
           what="Persistent agent memory architecture: three-tier, PostgreSQL plus SQLite plus embedded vector retrieval, with multi-agent isolation."
           sowhat="Memory is the unsolved hard part of reliable agents. A reusable, productizable layer that stands on its own." />
-        <Venture n="08" name="Eidolon + Ordinal" stage="Spec + reference impl"
+        <Venture n="11" name="Eidolon + Ordinal" stage="Spec + reference impl"
           what="A domain-agnostic PLM engine (phase gates, requirements tracing, ABAC) and a visual modeling language for AI-driven systems engineering."
           sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
       </section>
@@ -710,7 +873,135 @@ function VenturesPage() {
   );
 }
 
-const CONTACT_ENDPOINT = "https://forms.telogos.ai/contact";
+function ThoughtLeadershipPage() {
+  const Paper = ({ title, doi, note }) => (
+    <div className="paper-item">
+      <a href={`https://doi.org/${doi}`} target="_blank" rel="noopener" className="paper-title">{title}</a>
+      {note && <span className="paper-note">{note}</span>}
+    </div>
+  );
+  const Tier = ({ label, children }) => (
+    <div style={{marginBottom:"2.25rem"}}>
+      <p className="label" style={{marginBottom:"0.85rem",color:"rgba(240,237,230,0.45)"}}>{label}</p>
+      {children}
+    </div>
+  );
+
+  return (
+    <div className="page">
+      <section className="section" style={{paddingTop:"8rem",borderBottom:"1px solid rgba(240,237,230,0.12)"}}>
+        <p className="label">Thought Leadership</p>
+        <h1 className="heading" style={{fontSize:"clamp(2.5rem,5vw,5rem)",maxWidth:820,marginTop:"1rem"}}>
+          Published research,<br /><em>not marketing copy.</em>
+        </h1>
+        <p className="body-text" style={{maxWidth:700,marginTop:"1.75rem"}}>
+          The architecture and governance research behind Ologos's ventures is published openly, DOI-registered, and independently citable — not confined to internal decks. This is the corpus itself, curated to what's professionally relevant here; the fuller personal bodies of work (including research outside AI) are linked via ORCID for anyone who wants them.
+        </p>
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"0.5rem"}}>AIDE Canon &middot; JD Longmire &amp; Micah Longmire</p>
+        <p className="body-text" style={{maxWidth:700,marginBottom:"2rem"}}>
+          The AI-centric Digital Ecosystem (AIDE) reference architecture and its constituent standards, foundation through enterprise-platform tiers. Canonical home: <a href="https://github.com/ologos-repos/aide-canon" target="_blank" rel="noopener" style={{color:"#c8956a"}}>aide-canon</a>. Full corpora: <a href="https://orcid.org/0009-0009-1383-7698" target="_blank" rel="noopener" style={{color:"#c8956a"}}>JD Longmire (ORCID)</a> &middot; <a href="https://orcid.org/0009-0006-7608-9322" target="_blank" rel="noopener" style={{color:"#c8956a"}}>Micah Longmire (ORCID)</a>.
+        </p>
+
+        <Tier label="Foundation">
+          <Paper title="Human-Curated, AI-Enabled (HCAE): A Framework for Reliable AI Deployment" doi="10.5281/zenodo.18368697" />
+          <Paper title="AI Dunning-Kruger (AIDK): A Framework for Understanding Structural Epistemic Limitations" doi="10.5281/zenodo.18316059" />
+        </Tier>
+        <Tier label="Constructs">
+          <Paper title="Digital Ecosystems Architecture (DEA): A Three-Baseline Framework for Coherent Digital Realization" doi="10.5281/zenodo.20349598" />
+          <Paper title="Ordinal Systems Architecture (OrdSA): A Control Grammar for Enterprise AI Authority" doi="10.5281/zenodo.20334233" />
+          <Paper title="Mx-Modes: A Meta-Harness Framework for Multi-Mode AI Operation" doi="10.5281/zenodo.20419449" />
+          <Paper title="OAgents: A Behavioral Envelope Standard for Trustworthy AI Agent Operations" doi="10.5281/zenodo.19425021" />
+          <Paper title="OAgents: A Pre-Standardization Draft Profile for Operational AI Agent Trustworthiness" doi="10.5281/zenodo.19427785" />
+        </Tier>
+        <Tier label="Enterprise platforms">
+          <Paper title="AEON: An Enterprise Control Plane Architecture for the Agentic Era" doi="10.5281/zenodo.20349596" />
+          <Paper title="AIDEX: An Architecture for Human-Curated, AI-Enabled Knowledge Work" doi="10.5281/zenodo.20349597" />
+          <Paper title="The Next Shape of the IT Business Capability Model: From Vendor Substrate to Owned Agentic Platforms (OAAD)" doi="10.5281/zenodo.20349601" />
+        </Tier>
+        <Tier label="Related">
+          <Paper title="The Theseus Agent Thesis: Identity and Memory as the Permanents of AI Agency" doi="10.5281/zenodo.20327458" note="Micah Longmire, sole author" />
+          <Paper title="Portable Agent Harness Architecture (PAHA): A Capability-Centric Framework for Governed AI Ecosystems in Sovereignty-Bounded Enterprises" doi="10.5281/zenodo.20112632" />
+          <Paper title="Modus Primus: Engineering Specification for AI Architecture (PAHA Companion)" doi="10.5281/zenodo.20113785" />
+          <Paper title="Zero Trust for Fallible Agents: Why AI Belongs Inside the ZTA Control Model" doi="10.5281/zenodo.20472686" />
+        </Tier>
+      </section>
+
+      <section className="section section-mid">
+        <div className="inner section">
+        <p className="label" style={{marginBottom:"0.5rem"}}>HGC&sup3;AE&sup2; &amp; Managing Agentics Ops &middot; Justin Kuiper</p>
+        <p className="body-text" style={{maxWidth:700,marginBottom:"2rem"}}>
+          A parallel, independently developed research program on edge/tactical AI governance, agentic operations discipline, and zero-trust agent execution — published as Non Sequitur Publishing. Full corpus: <a href="https://orcid.org/0009-0008-7099-3286" target="_blank" rel="noopener" style={{color:"#c8956a"}}>Justin Kuiper (ORCID)</a>.
+        </p>
+
+        <Tier label="HGC³AE² reference architecture">
+          <Paper title="Mitigating Confident Misalignment (HGC³AE²)" doi="10.5281/zenodo.19869285" />
+          <Paper title="Epistemic Constraints and Semantic Compression" doi="10.5281/zenodo.19869287" />
+          <Paper title="The HGC³AE² Reference Architecture" doi="10.5281/zenodo.20180191" />
+          <Paper title="Confident Misalignment as Adversarial Attack Surface" doi="10.5281/zenodo.20180223" />
+          <Paper title="HGC³AE² at the Degraded Edge" doi="10.5281/zenodo.19991170" />
+          <Paper title="Persona Drift and Hallucination" doi="10.5281/zenodo.20006864" />
+        </Tier>
+        <Tier label="Skipjack Protocol &amp; agentic ops discipline">
+          <Paper title="Agile Scrum, Agentics, and the Skipjack Protocol" doi="10.5281/zenodo.19869293" />
+          <Paper title="Operating Model for Agentic Teams" doi="10.5281/zenodo.19869313" />
+          <Paper title="Sprint Discipline for AI-Augmented Work (Skipjack)" doi="10.5281/zenodo.20006990" />
+          <Paper title="The QA Lookback Loop" doi="10.5281/zenodo.20006960" />
+          <Paper title="RF Skip Jack" doi="10.5281/zenodo.20755047" />
+        </Tier>
+        <Tier label="The Problem Series &mdash; tactical edge operations">
+          <Paper title="The Classification Problem" doi="10.5281/zenodo.19964128" />
+          <Paper title="The Accreditation Problem" doi="10.5281/zenodo.19964133" />
+          <Paper title="The Interoperability Problem" doi="10.5281/zenodo.19964139" />
+          <Paper title="The Deployment Problem (Series Capstone)" doi="10.5281/zenodo.19964143" />
+          <Paper title="The State Coherence Problem" doi="10.5281/zenodo.19986911" />
+          <Paper title="The Orchestration Problem" doi="10.5281/zenodo.19986915" />
+          <Paper title="The Protocol Selection Problem" doi="10.5281/zenodo.19986917" />
+          <Paper title="The Workload Class Problem" doi="10.5281/zenodo.19986920" />
+          <Paper title="When the Link Is the Variable" doi="10.5281/zenodo.19986907" />
+          <Paper title="The Tactical Substrate (survey)" doi="10.5281/zenodo.19991166" />
+        </Tier>
+        <Tier label="Managing Agentics Ops &mdash; zero-trust governance">
+          <Paper title="The Robo Stack in Production (Managing Agentics Ops)" doi="10.5281/zenodo.20180179" />
+          <Paper title="Governance-Gated Execution (Agentic Zero-Trust)" doi="10.5281/zenodo.20180231" />
+          <Paper title="Context Integrity Failure as Agentic Cache-Poisoning Analog" doi="10.5281/zenodo.20180225" />
+          <Paper title="Silent Fallback as a Denial-of-Validation Attack" doi="10.5281/zenodo.20180229" />
+          <Paper title="Reconciliation Checkpoints as SOC Hunt-Cycle Doctrine" doi="10.5281/zenodo.20180233" />
+          <Paper title="Tool Orchestration as Confused-Deputy Surface" doi="10.5281/zenodo.20180235" />
+          <Paper title="Human Authority Boundary as Chain-of-Custody" doi="10.5281/zenodo.20180239" />
+          <Paper title="Intent Integrity" doi="10.5281/zenodo.20180140" />
+          <Paper title="Epistemic Weather" doi="10.5281/zenodo.20180142" />
+          <Paper title="The Comprehension Instrument for Agentic Systems" doi="10.5281/zenodo.20180181" />
+          <Paper title="Operational Plan: Heterogeneous Federation" doi="10.5281/zenodo.20180187" />
+        </Tier>
+        <Tier label="Compute, cost &amp; provenance">
+          <Paper title="Capacity Sourcing" doi="10.5281/zenodo.20180195" />
+          <Paper title="Heterogeneous Compute Routing" doi="10.5281/zenodo.20180201" />
+          <Paper title="The Capex/Opex Inflection" doi="10.5281/zenodo.20180203" />
+          <Paper title="Cost Guardrails for Self-Hosted Inference" doi="10.5281/zenodo.20180205" />
+          <Paper title="Cross-Account Harness Coordination" doi="10.5281/zenodo.20180209" />
+          <Paper title="Security and Provenance for Self-Hosted Agentic Systems" doi="10.5281/zenodo.20180211" />
+        </Tier>
+        <Tier label="Edge AI doctrine">
+          <Paper title="Edge AI Doctrine" doi="10.5281/zenodo.19869289" />
+          <Paper title="Agentic Substrate" doi="10.5281/zenodo.19869291" />
+          <Paper title="Alistair Prime in a Box" doi="10.5281/zenodo.19869307" />
+        </Tier>
+        <Tier label="Cyber governance in emergent stacks">
+          <Paper title="Cyber Governance in Emergent Stacks" doi="10.5281/zenodo.20755101" />
+          <Paper title="The Autonomy Problem" doi="10.5281/zenodo.20755103" />
+          <Paper title="The Intent Preservation Problem" doi="10.5281/zenodo.20755105" />
+          <Paper title="The Semantic-Integrity Problem" doi="10.5281/zenodo.20755107" />
+        </Tier>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+const CONTACT_ENDPOINT = "https://forms.ologos.co/contact";
 
 function ContactPage() {
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
@@ -755,7 +1046,7 @@ function ContactPage() {
             <p className="body-text" style={{marginBottom:"2.5rem"}}>
               Whether you're an investor evaluating our ventures, an enterprise client seeking AI-enabled capabilities, or a strategic acquirer exploring a portfolio fit -- we want to hear from you.
             </p>
-            {[["Email","contact@telogos.ai"],["Location","Fayetteville, Tennessee"],["Entity","Ologos LLC"]].map(([l,v]) => (
+            {[["Email","ologos-ai@ologos.co"],["Location","Fayetteville, Tennessee"]].map(([l,v]) => (
               <div key={l} style={{display:"flex",gap:"1.5rem",marginBottom:"1rem"}}>
                 <span style={{fontSize:"0.68rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(240,237,230,0.45)",paddingTop:"0.1rem",width:"70px",flexShrink:0}}>{l}</span>
                 <span style={{fontSize:"0.875rem",fontWeight:300,color:"rgba(240,237,230,0.82)"}}>{v}</span>
@@ -794,7 +1085,7 @@ function ContactPage() {
                 <div className="field"><label>Message</label><textarea name="message" placeholder="What are you exploring?" required /></div>
                 {status === "error" && (
                   <p style={{fontSize:"0.8rem",fontWeight:300,color:"#F06B35",marginBottom:"1rem"}}>
-                    Something went wrong sending your message — please email contact@telogos.ai directly.
+                    Something went wrong sending your message — please email ologos-ai@ologos.co directly.
                   </p>
                 )}
                 <button type="submit" className="btn-solid" disabled={status === "sending"}
@@ -810,27 +1101,63 @@ function ContactPage() {
   );
 }
 
-export default function App() {
-  const [page, setPage] = useState("home");
-  const go = (p) => { setPage(p); window.scrollTo(0,0); };
-  const pages = { home:<HomePage setPage={setPage}/>, ventures:<VenturesPage/>, about:<AboutPage/>, philosophy:<PhilosophyPage/>, team:<TeamPage/>, contact:<ContactPage/> };
+const PAGE_META = {
+  home: { title: "Ologos — Innovation Factory", description: "Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture." },
+  ventures: { title: "Ventures — Ologos", description: "The Ologos portfolio: a venture engine attacking the agent economy from the standard down to the product, every project sharing one fingerprint -- governed, auditable, sovereign AI." },
+  research: { title: "Thought Leadership — Ologos", description: "Published, DOI-registered AI research from the Ologos partners: the AIDE canon (AEON, AIDEX, OAgents, and related standards) and the HGC³AE² / Managing Agentics Ops corpus." },
+  about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures -- structured for investor diligence, government procurement, or strategic acquisition from day one." },
+  philosophy: { title: "Philosophy — Ologos", description: "Logos -- the Greek for word, reason, rational principle -- is the organizing conviction of the enterprise: agentic AI as amplification of human judgment, not replacement of it." },
+  team: { title: "Team — Ologos", description: "The Ologos Corp leadership team: systems and AI architects, technology operators, and an IP strategist, with deep experience in regulated federal and defense environments." },
+  contact: { title: "Contact — Ologos", description: "Get in touch with Ologos -- for investors evaluating our ventures, enterprise clients seeking AI-enabled capabilities, or strategic acquirers exploring a portfolio fit." },
+};
+
+function AppShell() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
+
+  useEffect(() => {
+    const page = PATH_TO_PAGE[location.pathname] || "home";
+    const meta = PAGE_META[page] || PAGE_META.home;
+    document.title = meta.title;
+    const descTag = document.querySelector('meta[name="description"]');
+    if (descTag) descTag.setAttribute("content", meta.description);
+  }, [location.pathname]);
+
   return (
     <div className="site-root">
       <style>{css}</style>
-      <Nav setPage={setPage} />
-      {pages[page]}
+      <Nav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/ventures" element={<VenturesPage />} />
+        <Route path="/thought-leadership" element={<ThoughtLeadershipPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/philosophy" element={<PhilosophyPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <footer className="footer">
         <div className="footer-logo">
           <img src={`${import.meta.env.BASE_URL}ologos-mark.png`} alt="Ologos" className="footer-mark" />
           <span>Ologos</span>
         </div>
         <ul className="footer-links">
-          {["ventures","about","philosophy","team","contact"].map(p=>(
-            <li key={p}><a onClick={()=>go(p)}>{p.charAt(0).toUpperCase()+p.slice(1)}</a></li>
+          {[["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"],["contact","Contact"]].map(([p,label])=>(
+            <li key={p}><a onClick={()=>go(p)}>{label}</a></li>
           ))}
         </ul>
-        <div className="footer-copy">© {new Date().getFullYear()} Ologos LLC</div>
+        <div className="footer-copy">© {new Date().getFullYear()} Ologos</div>
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   );
 }

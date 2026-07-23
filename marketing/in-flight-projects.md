@@ -18,6 +18,11 @@
 **So what:** Regulated, defense, and sovereignty-bound orgs can't put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof.
 **Stage:** Live · demo on request
 
+### SKIPJACK
+**What:** A zero-trust, edge-first agentic platform for disconnected and contested environments. One governed substrate that carries identity, memory, assurance, just-in-time privilege, and behavioral observability for fleets of AI agents, built to run where the network is degraded, intermittent, or absent.
+**So what:** Every agent-security tool on the market assumes the cloud is reachable. Agent identity is the problem nobody has solved, and only one percent of organizations have adopted just-in-time privileged access. SKIPJACK is built for exactly that gap: privilege that exists only while it is observed and fails closed when visibility is lost, a custody and freshness layer that stamps the age of every piece of data, and observation of agents from beneath the runtime rather than from their own self-reports. The hyperscalers are structurally weakest here because they are built for connectivity and scale. That is the wedge.
+**Stage:** In development. Phase-zero architecture complete; building on the AIDE canon.
+
 ### DEXter — the user console
 **What:** Governed, OAuth-gated GUI agent console and artifact engine for the Ologos ecosystem.
 **So what:** The usable front door to governed agents — the copilot UX that makes the platform sellable to non-engineers. Half of the human control layer.
