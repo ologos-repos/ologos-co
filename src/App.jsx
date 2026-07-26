@@ -411,6 +411,70 @@ const css = `
   .footer-links a:hover { color: #f0ede6; }
   .footer-copy { font-size: 0.72rem; color: rgba(240,237,230,0.3); }
 
+  /* UNITY PLATFORM */
+  .unity-hero-tag {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.75;
+    color: rgba(240,237,230,0.78); max-width: 660px; margin-top: 1.5rem;
+  }
+  .unity-figure {
+    margin: 3.5rem 0 0; max-width: 1200px;
+    border: 1px solid rgba(240,237,230,0.15);
+    border-radius: 4px; overflow: hidden; background: #0d1424;
+  }
+  .unity-figure img { display: block; width: 100%; height: auto; }
+  .unity-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: rgba(240,237,230,0.12);
+    border: 1px solid rgba(240,237,230,0.12); margin-top: 2.5rem;
+  }
+  .unity-tile {
+    background: #1a1a1a; padding: 2.25rem 2rem;
+    display: flex; flex-direction: column;
+  }
+  .unity-tile-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.25rem; font-weight: 400; color: #f0ede6;
+    margin-bottom: 0.65rem; letter-spacing: 0.01em;
+  }
+  .unity-tile-name em { font-style: italic; color: #c8956a; }
+  .unity-tile-desc {
+    font-size: 0.85rem; font-weight: 300; line-height: 1.6;
+    color: rgba(240,237,230,0.68); margin-bottom: 1.4rem;
+  }
+  .unity-tile-caps { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; }
+  .unity-tile-caps li {
+    font-size: 0.78rem; font-weight: 300; letter-spacing: 0.02em;
+    color: rgba(240,237,230,0.62); padding-left: 1rem; position: relative;
+  }
+  .unity-tile-caps li::before {
+    content: ""; position: absolute; left: 0; top: 0.5rem;
+    width: 4px; height: 4px; border-radius: 50%; background: rgba(200,149,106,0.75);
+  }
+  .unity-foundation {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 2.5rem; margin-top: 2.5rem;
+  }
+  .unity-pillar-title {
+    font-size: 0.9rem; font-weight: 500; color: #f0ede6;
+    margin-bottom: 0.6rem; letter-spacing: 0.01em;
+  }
+  .unity-pillar-body {
+    font-size: 0.8rem; font-weight: 300; line-height: 1.6;
+    color: rgba(240,237,230,0.62);
+  }
+  .unity-mission {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 3rem; margin-top: 2.5rem; max-width: 1100px;
+  }
+  .unity-mission-title {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #c8956a; margin-bottom: 0.7rem;
+  }
+  .unity-mission-body {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.65;
+    color: rgba(240,237,230,0.74);
+  }
+
   .page { animation: fadeUp 0.3s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
 
@@ -422,12 +486,18 @@ const css = `
     .process-col { border-left: none; border-top: 1px solid rgba(240,237,230,0.12); }
     .nav-links { display: none; }
     .nav-burger { display: flex; }
+    .unity-grid { grid-template-columns: 1fr 1fr; }
+    .unity-foundation { grid-template-columns: 1fr 1fr; }
+    .unity-mission { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .section { padding: 4rem 1.5rem; }
     .nav { padding: 1.25rem 1.5rem; }
     .hero { padding: 6rem 1.5rem 3.5rem; }
     .team-grid { grid-template-columns: 1fr; }
+    .unity-grid { grid-template-columns: 1fr; }
+    .unity-foundation { grid-template-columns: 1fr; }
+    .unity-mission { grid-template-columns: 1fr; }
     .footer { flex-direction: column; }
     .footer-links { gap: 0.75rem 1.25rem; }
   }
@@ -435,6 +505,7 @@ const css = `
 
 const PAGE_PATHS = {
   home: "/",
+  platform: "/platform",
   ventures: "/ventures",
   research: "/thought-leadership",
   about: "/about",
@@ -444,7 +515,7 @@ const PAGE_PATHS = {
 };
 const PATH_TO_PAGE = Object.fromEntries(Object.entries(PAGE_PATHS).map(([k, v]) => [v, k]));
 
-const NAV_LINKS = [["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]];
+const NAV_LINKS = [["platform","Platform"],["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]];
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -532,6 +603,7 @@ function HomePage() {
         <div className="hero-explore-group">
           <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
           <a className="hero-explore" onClick={() => go("research")}>Explore our thought leadership <span className="arrow">→</span></a>
+          <a className="hero-explore" onClick={() => go("platform")}>Explore our platform <span className="arrow">→</span></a>
         </div>
         <div className="hero-meta">
           <p className="hero-desc">
@@ -624,6 +696,107 @@ function HomePage() {
             <p className="press-meta">{p.meta} <span className="arrow">→</span></p>
           </a>
         ))}
+      </section>
+    </div>
+  );
+}
+
+const UNITY_TILES = [
+  ["Studio","Design, build, and orchestrate workspaces and automations.",["Workspace designer","Workflow builder","Templates & blueprints","Simulation & testing"]],
+  ["Runtime","The attach substrate for agents, tools, and services.",["Attach protocols","Capability registry","Session management","Secure execution"]],
+  ["Teams","Shared workspaces for humans and AI agents.",["Team workspaces","Role & membership","Collaboration tools","Activity & context"]],
+  ["Workspaces","Persistent, governed workspaces with isolated state.",["Project isolation","Context & memory","Artifacts & files","Environment control"]],
+  ["Control","Policy, approvals, and governance at every layer.",["Policy engine","Approvals & gates","Guardrails","Compliance rules"]],
+  ["Registry","Discover, vet, and manage capabilities and integrations.",["Capability catalog","Tool & agent registry","Version & provenance","Trust & verification"]],
+  ["Evidence","Tamper-evident audit and proof across the entire lifecycle.",["Immutable ledger","Audit trails","Attestations","Reports & export"]],
+  ["Connect","Secure integration with enterprise systems and external services.",["Connectors","APIs & webhooks","MCP gateway","Event streaming"]],
+  ["Enterprise","Scale, secure, and operate across the enterprise.",["SSO & federation","Multi-tenant admin","Observability","HA & scalability"]],
+];
+const UNITY_FOUNDATION = [
+  ["Security by design","Zero trust, least privilege, and encryption everywhere."],
+  ["Privacy & sovereignty","Your data, your control. Deploy anywhere."],
+  ["Resilience & recovery","Built for continuity with recovery and rollback."],
+  ["Open & extensible","Open protocols, SDKs, and developer tools."],
+  ["Interoperable","Works with your tools, models, and infrastructure."],
+];
+const UNITY_MISSION = [
+  ["Trusted execution","Every action governed, approved, and verifiable."],
+  ["Human + agent collaboration","Shared context, aligned goals, better outcomes."],
+  ["Operational excellence","Standardized, repeatable, and continuously improving."],
+  ["Compliance & auditability","Evidence you can prove. Confidence you can trust."],
+  ["Our mission","Bring order to complexity and empower people and agents to achieve more together."],
+];
+
+function PlatformPage() {
+  const navigate = useNavigate();
+  const go = (p) => { navigate(PAGE_PATHS[p] ?? "/"); window.scrollTo(0,0); };
+  return (
+    <div className="page">
+      <section className="section" style={{paddingTop:"8rem",borderBottom:"1px solid rgba(240,237,230,0.12)"}}>
+        <p className="label">The Platform</p>
+        <h1 className="heading" style={{fontSize:"clamp(2.5rem,5vw,5rem)",maxWidth:900,marginTop:"1rem"}}>
+          Ologos Unity<br /><em>The Governed Operating Platform.</em>
+        </h1>
+        <p className="unity-hero-tag">
+          Unifying humans, AI agents, tools, and data to execute trusted work -- one governed platform behind every venture we build, and available to the enterprises we serve.
+        </p>
+        <figure className="unity-figure">
+          <img
+            src={`${import.meta.env.BASE_URL}ologos-unity-platform.jpg`}
+            alt="Ologos Unity, the governed operating platform: the nine-part Unity portfolio (studio, runtime, teams, workspaces, control, registry, evidence, connect, enterprise), the platform foundation, and the mission."
+          />
+        </figure>
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"0.75rem"}}>The Unity Portfolio</p>
+        <h2 className="heading" style={{maxWidth:760,marginBottom:"0.5rem"}}>Nine capabilities.<br /><em>One governed fabric.</em></h2>
+        <div className="unity-grid">
+          {UNITY_TILES.map(([name,desc,caps]) => (
+            <div className="unity-tile" key={name}>
+              <div className="unity-tile-name">unity <em>{name.toLowerCase()}</em></div>
+              <div className="unity-tile-desc">{desc}</div>
+              <ul className="unity-tile-caps">
+                {caps.map(c => <li key={c}>{c}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section section-mid">
+        <p className="label" style={{marginBottom:"2rem"}}>Platform Foundation</p>
+        <div className="unity-foundation">
+          {UNITY_FOUNDATION.map(([t,b]) => (
+            <div key={t}>
+              <div className="unity-pillar-title">{t}</div>
+              <div className="unity-pillar-body">{b}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <p className="label" style={{marginBottom:"0.75rem"}}>One Platform. Unified Outcomes.</p>
+        <h2 className="heading" style={{maxWidth:760,marginBottom:"2.5rem"}}>Governed work.<br /><em>Trusted results. Every time.</em></h2>
+        <div className="unity-mission">
+          {UNITY_MISSION.map(([t,b]) => (
+            <div key={t}>
+              <div className="unity-mission-title">{t}</div>
+              <div className="unity-mission-body">{b}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section">
+        <p className="statement">
+          The platform behind the factory -- <em>and ready for yours.</em>
+        </p>
+        <div style={{marginTop:"2.5rem",display:"flex",gap:"1rem",flexWrap:"wrap"}}>
+          <button className="btn-solid" onClick={() => go("contact")}>Partner With Us →</button>
+          <button className="btn-ghost" onClick={() => go("ventures")}>Explore Our Ventures</button>
+        </div>
       </section>
     </div>
   );
@@ -1103,6 +1276,7 @@ function ContactPage() {
 
 const PAGE_META = {
   home: { title: "Ologos — Innovation Factory", description: "Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture." },
+  platform: { title: "Ologos Unity — The Governed Operating Platform", description: "Ologos Unity is the governed operating platform unifying humans, AI agents, tools, and data to execute trusted work: a nine-part portfolio (studio, runtime, teams, workspaces, control, registry, evidence, connect, enterprise) built on security, sovereignty, and auditability." },
   ventures: { title: "Ventures — Ologos", description: "The Ologos portfolio: a venture engine attacking the agent economy from the standard down to the product, every project sharing one fingerprint -- governed, auditable, sovereign AI." },
   research: { title: "Thought Leadership — Ologos", description: "Published, DOI-registered AI research from the Ologos partners: the AIDE canon (AEON, AIDEX, OAgents, and related standards) and the HGC³AE² / Managing Agentics Ops corpus." },
   about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures -- structured for investor diligence, government procurement, or strategic acquisition from day one." },
@@ -1130,6 +1304,7 @@ function AppShell() {
       <Nav />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/platform" element={<PlatformPage />} />
         <Route path="/ventures" element={<VenturesPage />} />
         <Route path="/thought-leadership" element={<ThoughtLeadershipPage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -1144,7 +1319,7 @@ function AppShell() {
           <span>Ologos</span>
         </div>
         <ul className="footer-links">
-          {[["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"],["contact","Contact"]].map(([p,label])=>(
+          {[["platform","Platform"],["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"],["contact","Contact"]].map(([p,label])=>(
             <li key={p}><a onClick={()=>go(p)}>{label}</a></li>
           ))}
         </ul>
