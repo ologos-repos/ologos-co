@@ -158,7 +158,7 @@ const css = `
   }
   .hero-actions { display: flex; gap: 1rem; flex-shrink: 0; }
 
-  /* tasteful "Explore our ventures" / "Explore our thought leadership" links under the headline */
+  /* tasteful "Explore our opportunities" / "Explore our thought leadership" links under the headline */
   .hero-explore-group {
     display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
     margin: -1.5rem 0 2rem;
@@ -506,7 +506,7 @@ const css = `
 const PAGE_PATHS = {
   home: "/",
   platform: "/platform",
-  ventures: "/ventures",
+  opportunities: "/opportunities",
   research: "/thought-leadership",
   about: "/about",
   philosophy: "/philosophy",
@@ -515,7 +515,7 @@ const PAGE_PATHS = {
 };
 const PATH_TO_PAGE = Object.fromEntries(Object.entries(PAGE_PATHS).map(([k, v]) => [v, k]));
 
-const NAV_LINKS = [["platform","Platform"],["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]];
+const NAV_LINKS = [["platform","Platform"],["opportunities","Opportunities"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"]];
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -601,13 +601,13 @@ function HomePage() {
           ready for what's next.
         </h1>
         <div className="hero-explore-group">
-          <a className="hero-explore" onClick={() => go("ventures")}>Explore our ventures <span className="arrow">→</span></a>
+          <a className="hero-explore" onClick={() => go("opportunities")}>Explore our opportunities <span className="arrow">→</span></a>
           <a className="hero-explore" onClick={() => go("research")}>Explore our thought leadership <span className="arrow">→</span></a>
           <a className="hero-explore" onClick={() => go("platform")}>Explore our platform <span className="arrow">→</span></a>
         </div>
         <div className="hero-meta">
           <p className="hero-desc">
-            Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture, structured, mature, and ready for the next phase.
+            Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent opportunity, structured, mature, and ready for the next phase.
           </p>
           <div className="hero-actions">
             <button className="btn-ghost" onClick={() => go("about")}>How We Work</button>
@@ -621,15 +621,15 @@ function HomePage() {
           <div>
             <p className="label">The Model</p>
             <h2 className="heading" style={{marginBottom:"2rem"}}>
-              Think tank.<br /><em>Innovation factory.</em><br />Venture engine.
+              Think tank.<br /><em>Innovation factory.</em><br />Opportunity engine.
             </h2>
           </div>
           <div>
             <p className="body-text" style={{marginBottom:"1.25rem"}}>
-              Ologos is the engine that produces investment-ready ventures. When an idea reaches maturity, we spin it off as an independent company with its own cap table, assigned IP, and governance structure.
+              Ologos is the engine that produces investment-ready opportunities. When an idea reaches maturity, we spin it off as an independent company with its own cap table, assigned IP, and governance structure.
             </p>
             <p className="body-text">
-              The acquirer buys the venture. Ologos walks away capitalized and ready to build the next one.
+              The acquirer buys the opportunity. Ologos walks away capitalized and ready to build the next one.
             </p>
           </div>
         </div>
@@ -643,7 +643,7 @@ function HomePage() {
           {[
             ["01","Thesis Formation","Every initiative begins with a written, falsifiable thesis: the structural gap, the differentiated approach, the exit path. No thesis, no build."],
             ["02","Collaborative Incubation","Cross-functional teams work iteratively -- combining domain expertise, agentic AI tooling, and Enterprise-grade systems architecture methodology."],
-            ["03","Venture Spin-off","Mature ideas become independent companies. Clean cap tables, assigned IP, and documented governance, structured for diligence from day one."],
+            ["03","Opportunity Spin-off","Mature ideas become independent companies. Clean cap tables, assigned IP, and documented governance, structured for diligence from day one."],
           ].map(([n,t,b]) => (
             <div className="process-col" key={n}>
               <span className="process-num">{n}</span>
@@ -657,7 +657,7 @@ function HomePage() {
 
       <section className="section">
         <p className="statement">
-          We bring enterprise systems architecture, agentic AI, and applied philosophy of technology to bear on every venture we build. <em>Every venture carries that fingerprint.</em>
+          We bring enterprise systems architecture, agentic AI, and applied philosophy of technology to bear on every opportunity we build. <em>Every opportunity carries that fingerprint.</em>
         </p>
       </section>
 
@@ -665,7 +665,7 @@ function HomePage() {
         <div style={{maxWidth:1100}}>
           <p className="label" style={{marginBottom:"2rem"}}>Who We Work With</p>
           {[
-            ["Investors","Accredited investors and family offices evaluating exposure to emerging AI and defense-tech ventures before they reach institutional scale."],
+            ["Investors","Accredited investors and family offices evaluating exposure to emerging AI and defense-tech opportunities before they reach institutional scale."],
             ["Enterprise Clients","Government and commercial enterprises seeking AI-enabled capabilities, enterprise architecture consultation, or pilot partnerships with novel technology."],
             ["Strategic Acquirers","Platform companies and integrators seeking mature, mission-specific products with clean IP, proven teams, and minimal diligence risk."],
           ].map(([t,b],i) => (
@@ -686,7 +686,7 @@ function HomePage() {
           {
             title:"AI enthusiasm isn't AI readiness: Why mission clarity must come first",
             href:"https://federalnewsnetwork.com/commentary/2026/07/ai-enthusiasm-isnt-ai-readiness-why-mission-clarity-must-come-first/",
-            note:"Ologos CISO Justin Kuiper on why mission clarity -- not technology enthusiasm -- is the real measure of AI readiness. The same conviction anchors every venture we build: no thesis, no build.",
+            note:"Ologos CISO Justin Kuiper on why mission clarity -- not technology enthusiasm -- is the real measure of AI readiness. The same conviction anchors every opportunity we build: no thesis, no build.",
             meta:"Justin Kuiper · Federal News Network · July 2026",
           },
         ].map(p => (
@@ -738,7 +738,7 @@ function PlatformPage() {
           Ologos Unity<br /><em>The Governed Operating Platform.</em>
         </h1>
         <p className="unity-hero-tag">
-          Unifying humans, AI agents, tools, and data to execute trusted work -- one governed platform behind every venture we build, and available to the enterprises we serve.
+          Unifying humans, AI agents, tools, and data to execute trusted work -- one governed platform behind every opportunity we build, and available to the enterprises we serve.
         </p>
         <figure className="unity-figure">
           <img
@@ -795,7 +795,7 @@ function PlatformPage() {
         </p>
         <div style={{marginTop:"2.5rem",display:"flex",gap:"1rem",flexWrap:"wrap"}}>
           <button className="btn-solid" onClick={() => go("contact")}>Partner With Us →</button>
-          <button className="btn-ghost" onClick={() => go("ventures")}>Explore Our Ventures</button>
+          <button className="btn-ghost" onClick={() => go("opportunities")}>Explore Our Opportunities</button>
         </div>
       </section>
     </div>
@@ -815,17 +815,17 @@ function AboutPage() {
       <section className="section">
         <div className="two-col">
           <div>
-            {["Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures.",
-              "When an idea matures, we spin it off as an independent company: its own cap table, its own IP assignments, its own governance. The venture is structured for investor diligence, government procurement, or strategic acquisition.",
-              "The model is deliberate. Ologos absorbs the early-stage uncertainty so each venture can enter the market clean."
+            {["Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready opportunities.",
+              "When an idea matures, we spin it off as an independent company: its own cap table, its own IP assignments, its own governance. The opportunity is structured for investor diligence, government procurement, or strategic acquisition.",
+              "The model is deliberate. Ologos absorbs the early-stage uncertainty so each opportunity can enter the market clean."
             ].map((t,i) => <p key={i} className="body-text" style={{marginBottom:"1.25rem"}}>{t}</p>)}
           </div>
           <div>
             <p className="label" style={{marginBottom:"1.5rem"}}>What Sets Us Apart</p>
             {[
               ["Thesis-driven","No initiative advances without a documented, falsifiable thesis."],
-              ["Enterprise-grade systems rigor","Architecture methodology (UAF/TOGAF) borrowed from large-scale systems engineering, applied to commercial ventures."],
-              ["Agentic AI-native","Every venture is built with agentic AI tooling from day one -- not retrofitted."],
+              ["Enterprise-grade systems rigor","Architecture methodology (UAF/TOGAF) borrowed from large-scale systems engineering, applied to commercial opportunities."],
+              ["Agentic AI-native","Every opportunity is built with agentic AI tooling from day one -- not retrofitted."],
               ["Exit-clean by design","Cap tables, IP, and governance are structured for diligence before the first commit."],
             ].map(([t,b]) => (
               <div className="rule-item" key={t}>
@@ -859,7 +859,7 @@ function PhilosophyPage() {
             {[
               <><em style={{fontStyle:"italic",color:"#f0ede6"}}>Logos</em> -- the Greek for word, reason, rational principle -- is not a brand flourish. It is the organizing conviction of the enterprise.</>,
               "AI systems, however sophisticated, are approximations of rational structure that precedes computation. That distinction shapes how we build. Systems designed without a theory of their own limits tend to exceed them in the wrong direction: overconfident, misaligned, brittle at the boundary conditions that matter most.",
-              "Human judgment is not a bottleneck to be engineered away. It is the calibration mechanism that makes AI capability trustworthy. Every Ologos venture reflects this posture: agentic AI as amplification, not replacement.",
+              "Human judgment is not a bottleneck to be engineered away. It is the calibration mechanism that makes AI capability trustworthy. Every Ologos opportunity reflects this posture: agentic AI as amplification, not replacement.",
             ].map((t,i) => <p key={i} className="body-text" style={{marginBottom:"1.25rem"}}>{t}</p>)}
           </div>
           <div style={{borderLeft:"1px solid rgba(240,237,230,0.18)",paddingLeft:"2.5rem"}}>
@@ -878,7 +878,7 @@ function PhilosophyPage() {
           <p className="label" style={{marginBottom:"2rem"}}>Operating Principles</p>
           {[
             ["Thesis before build","No initiative advances without a written, falsifiable thesis."],
-            ["Systems over components","Enterprise systems engineering methodology applied to commercial ventures. We model before we code."],
+            ["Systems over components","Enterprise systems engineering methodology applied to commercial opportunities. We model before we code."],
             ["Honesty over confidence","Internal culture that rewards identifying failure modes early. Overconfidence is a design flaw."],
             ["Exit-clean from day one","IP assigned, governance documented, cap table intentional -- before the first commit."],
             ["Human-curated AI","Agentic AI as a force multiplier for human expertise, never a substitute for judgment."],
@@ -919,7 +919,7 @@ function TeamPage() {
         <div style={{maxWidth:1200}}>
           <p className="label label-dark" style={{marginBottom:"1rem"}}>Leadership</p>
           <p className="body-text body-text-dark" style={{maxWidth:560,marginBottom:"3rem"}}>
-            The Ologos leadership team combines enterprise systems architecture, AI engineering, financial governance, and cybersecurity -- applied with the discipline of defense industry and the velocity of a lean venture operation.
+            The Ologos leadership team combines enterprise systems architecture, AI engineering, financial governance, and cybersecurity -- applied with the discipline of defense industry and the velocity of a lean opportunity operation.
           </p>
           <div className="team-grid">
             {team.map(m => (
@@ -948,7 +948,7 @@ function TeamPage() {
           </div>
           <div style={{paddingTop:"0.5rem"}}>
             <p className="body-text" style={{marginBottom:"1.5rem"}}>
-              Ologos engages technical collaborators, research partners, and domain experts on a venture-by-venture basis. If your discipline intersects with AI, enterprise systems, or applied philosophy of technology, we want to hear from you.
+              Ologos engages technical collaborators, research partners, and domain experts on an opportunity-by-opportunity basis. If your discipline intersects with AI, enterprise systems, or applied philosophy of technology, we want to hear from you.
             </p>
             <p style={{fontSize:"0.75rem",letterSpacing:"0.06em",textTransform:"uppercase",color:"rgba(240,237,230,0.45)"}}>
               NDA available for prospective collaborators.
@@ -960,8 +960,8 @@ function TeamPage() {
   );
 }
 
-function VenturesPage() {
-  const Venture = ({ n, name, tag, stage, what, sowhat, link }) => (
+function OpportunitiesPage() {
+  const Opportunity = ({ n, name, tag, stage, what, sowhat, link }) => (
     <div className="rule-item">
       <span className="rule-num">{n}</span>
       <div>
@@ -987,52 +987,52 @@ function VenturesPage() {
   return (
     <div className="page">
       <section className="section" style={{paddingTop:"8rem",borderBottom:"1px solid rgba(240,237,230,0.12)"}}>
-        <p className="label">Ventures</p>
+        <p className="label">Opportunities</p>
         <h1 className="heading" style={{fontSize:"clamp(2.5rem,5vw,5rem)",maxWidth:820,marginTop:"1rem"}}>
           The portfolio,<br /><em>in flight.</em>
         </h1>
         <p className="body-text" style={{maxWidth:660,marginTop:"1.75rem"}}>
-          Ologos is not one bet. It is a venture engine, and every project here shares one fingerprint: governed, auditable, sovereign AI. The breadth is the proof, a coherent portfolio attacking the agent economy from the standard down to the product, with live systems already running.
+          Ologos is not one bet. It is an opportunity engine, and every project here shares one fingerprint: governed, auditable, sovereign AI. The breadth is the proof, a coherent portfolio attacking the agent economy from the standard down to the product, with live systems already running.
         </p>
       </section>
 
       <section className="section">
         <p className="label" style={{marginBottom:"1.5rem"}}>Flagship &amp; Products</p>
-        <Venture n="01" name="CrewPort" tag="flagship" stage="Live" link="https://crewport.ai"
+        <Opportunity n="01" name="CrewPort" tag="flagship" stage="Live" link="https://crewport.ai"
           what="Marketplace for AI agent crews, with contract enforcement as a service."
           sowhat="The agent economy is exploding, but there is no trusted layer to hire, compose, and hold accountable teams of AI agents. CrewPort is that marketplace, with enforceable contracts as the trust mechanism. The toll road for multi-agent work." />
-        <Venture n="02" name="AIOC" tag="enterprise AI operations" stage="Proof of concept · enterprise engagement" link="https://ologos.co/aioc/"
+        <Opportunity n="02" name="AIOC" tag="enterprise AI operations" stage="Proof of concept · enterprise engagement" link="https://ologos.co/aioc/"
           what="Enterprise AI Operations Center: a governed AI operations layer, proven out for enterprise customers, that sits above commercial AI platforms without ever depending on one."
           sowhat="Enterprises are choosing between vendor lock-in and rebuilding everything themselves. AIOC proves a third path: your own governed control plane, commercial models where they fit, sovereign self-hosted models where they don't, already demonstrated in a working proof of concept for a highly regulated enterprise customer, with the sovereign self-hosted path architected and requirement-accepted for that customer's air-gapped environment." />
-        <Venture n="03" name="OlogosOffice" stage="Live · demo on request"
+        <Opportunity n="03" name="OlogosOffice" stage="Live · demo on request"
           what="Ologos' own gated, self-hosted, AI-native collaboration and productivity suite: mail, files, office, chat, meet, git and CI, search, and an AI copilot."
           sowhat="Regulated, defense, and sovereignty-bound orgs cannot put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof." />
-        <Venture n="04" name="SKIPJACK" stage="In development"
+        <Opportunity n="04" name="SKIPJACK" stage="In development"
           what="A zero-trust, edge-first agentic platform for disconnected and contested environments. One governed substrate that carries identity, memory, assurance, just-in-time privilege, and behavioral observability for fleets of AI agents, built to run where the network is degraded, intermittent, or absent."
           sowhat="Every agent-security tool on the market assumes the cloud is reachable. Agent identity is the problem nobody has solved, and only one percent of organizations have adopted just-in-time privileged access. SKIPJACK is built for exactly that gap: privilege that exists only while it is observed and fails closed when visibility is lost, a custody and freshness layer that stamps the age of every piece of data, and observation of agents from beneath the runtime rather than from their own self-reports. The hyperscalers are structurally weakest here because they are built for connectivity and scale. That is the wedge." />
-        <Venture n="05" name="DEXter" tag="the user console" stage="Live"
+        <Opportunity n="05" name="DEXter" tag="the user console" stage="Live"
           what="Governed, OAuth-gated GUI agent console and artifact engine for the Ologos ecosystem."
           sowhat="The usable front door to governed agents, the copilot UX that makes the platform sellable to non-engineers. Half of the human control layer." />
-        <Venture n="06" name="Ologos Operator" tag="the control plane" stage="Live"
+        <Opportunity n="06" name="Ologos Operator" tag="the control plane" stage="Live"
           what="Super-admin operator console for a governed agent fleet: a gated web UI to launch, authenticate, stream, persist, and audit agent sessions across the org."
           sowhat="Every enterprise that deploys AI agents at scale needs one governed pane of glass to run and control them, not a pile of terminals. The control plane is where the recurring enterprise license lives, the surface that turns having agents into governing agents." />
       </section>
 
       <section className="section section-mid">
         <p className="label" style={{marginBottom:"1.5rem"}}>Foundational IP &amp; Standards</p>
-        <Venture n="07" name="AIDE" stage="Public corpus + platform"
+        <Opportunity n="07" name="AIDE" stage="Public corpus + platform"
           what="The governed, auditable, model-agnostic AI reference architecture and its canonical standards (DEA, OrdSA, MxM, OAgents, AEON, AIDEX)."
-          sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the ventures are its proof points." />
-        <Venture n="08" name="AHES" tag="AI Harness Engineering Standard" stage="Draft standard v0.1 · public" link="https://github.com/ologos-repos/ai-harness-engineering"
+          sowhat="Every product here is an instance of this. Owning the standard for governed enterprise AI is the durable asset; the opportunities are its proof points." />
+        <Opportunity n="08" name="AHES" tag="AI Harness Engineering Standard" stage="Draft standard v0.1 · public" link="https://github.com/ologos-repos/ai-harness-engineering"
           what="A normative engineering standard for the AI harness itself -- the control environment surrounding one or more AI models -- across sixteen harness domains, from model gateways to evidence capture."
           sowhat="Harness engineering is the discipline every AIOC engagement runs on. AHES formalizes it into numbered, checkable requirements instead of an essay -- draft v0.1, not yet released for conformance use, developed openly rather than kept as an internal trade secret." />
-        <Venture n="09" name="AICP" stage="Protocol"
+        <Opportunity n="09" name="AICP" stage="Protocol"
           what="Agent Identity Card Protocol: platform-mediated agent identity, tool injection, and work-lifecycle management."
           sowhat="Enterprises will not hand tools and data to agents they cannot identify. Foundational protocol IP for the trust layer of the agent economy." />
-        <Venture n="10" name="Nous" stage="Library"
+        <Opportunity n="10" name="Nous" stage="Library"
           what="Persistent agent memory architecture: three-tier, PostgreSQL plus SQLite plus embedded vector retrieval, with multi-agent isolation."
           sowhat="Memory is the unsolved hard part of reliable agents. A reusable, productizable layer that stands on its own." />
-        <Venture n="11" name="Eidolon + Ordinal" stage="Spec + reference impl"
+        <Opportunity n="11" name="Eidolon + Ordinal" stage="Spec + reference impl"
           what="A domain-agnostic PLM engine (phase gates, requirements tracing, ABAC) and a visual modeling language for AI-driven systems engineering."
           sowhat="The systems-engineering rigor that is the Ologos fingerprint, packaged as sellable tooling for regulated product orgs." />
       </section>
@@ -1068,7 +1068,7 @@ function ThoughtLeadershipPage() {
           Published research,<br /><em>not marketing copy.</em>
         </h1>
         <p className="body-text" style={{maxWidth:700,marginTop:"1.75rem"}}>
-          The architecture and governance research behind Ologos's ventures is published openly, DOI-registered, and independently citable — not confined to internal decks. This is the corpus itself, curated to what's professionally relevant here; the fuller personal bodies of work (including research outside AI) are linked via ORCID for anyone who wants them.
+          The architecture and governance research behind Ologos's opportunities is published openly, DOI-registered, and independently citable — not confined to internal decks. This is the corpus itself, curated to what's professionally relevant here; the fuller personal bodies of work (including research outside AI) are linked via ORCID for anyone who wants them.
         </p>
       </section>
 
@@ -1217,7 +1217,7 @@ function ContactPage() {
         <div className="two-col" style={{maxWidth:1100}}>
           <div>
             <p className="body-text" style={{marginBottom:"2.5rem"}}>
-              Whether you're an investor evaluating our ventures, an enterprise client seeking AI-enabled capabilities, or a strategic acquirer exploring a portfolio fit -- we want to hear from you.
+              Whether you're an investor evaluating our opportunities, an enterprise client seeking AI-enabled capabilities, or a strategic acquirer exploring a portfolio fit -- we want to hear from you.
             </p>
             {[["Email","ologos-ai@ologos.co"],["Location","Fayetteville, Tennessee"]].map(([l,v]) => (
               <div key={l} style={{display:"flex",gap:"1.5rem",marginBottom:"1rem"}}>
@@ -1275,14 +1275,14 @@ function ContactPage() {
 }
 
 const PAGE_META = {
-  home: { title: "Ologos — Innovation Factory", description: "Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent venture." },
+  home: { title: "Ologos — Innovation Factory", description: "Ologos is a think tank and innovation factory. We incubate high-conviction ideas under rigorous systems discipline, then spin each one off as an independent opportunity." },
   platform: { title: "Ologos Unity — The Governed Operating Platform", description: "Ologos Unity is the governed operating platform unifying humans, AI agents, tools, and data to execute trusted work: a nine-part portfolio (studio, runtime, teams, workspaces, control, registry, evidence, connect, enterprise) built on security, sovereignty, and auditability." },
-  ventures: { title: "Ventures — Ologos", description: "The Ologos portfolio: a venture engine attacking the agent economy from the standard down to the product, every project sharing one fingerprint -- governed, auditable, sovereign AI." },
+  opportunities: { title: "Opportunities — Ologos", description: "The Ologos portfolio: an opportunity engine attacking the agent economy from the standard down to the product, every project sharing one fingerprint -- governed, auditable, sovereign AI." },
   research: { title: "Thought Leadership — Ologos", description: "Published, DOI-registered AI research from the Ologos partners: the AIDE canon (AEON, AIDEX, OAgents, and related standards) and the HGC³AE² / Managing Agentics Ops corpus." },
-  about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready ventures -- structured for investor diligence, government procurement, or strategic acquisition from day one." },
+  about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready opportunities -- structured for investor diligence, government procurement, or strategic acquisition from day one." },
   philosophy: { title: "Philosophy — Ologos", description: "Logos -- the Greek for word, reason, rational principle -- is the organizing conviction of the enterprise: agentic AI as amplification of human judgment, not replacement of it." },
   team: { title: "Team — Ologos", description: "The Ologos Corp leadership team: systems and AI architects, technology operators, and an IP strategist, with deep experience in regulated federal and defense environments." },
-  contact: { title: "Contact — Ologos", description: "Get in touch with Ologos -- for investors evaluating our ventures, enterprise clients seeking AI-enabled capabilities, or strategic acquirers exploring a portfolio fit." },
+  contact: { title: "Contact — Ologos", description: "Get in touch with Ologos -- for investors evaluating our opportunities, enterprise clients seeking AI-enabled capabilities, or strategic acquirers exploring a portfolio fit." },
 };
 
 function AppShell() {
@@ -1305,7 +1305,8 @@ function AppShell() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/platform" element={<PlatformPage />} />
-        <Route path="/ventures" element={<VenturesPage />} />
+        <Route path="/opportunities" element={<OpportunitiesPage />} />
+        <Route path="/ventures" element={<Navigate to="/opportunities" replace />} />
         <Route path="/thought-leadership" element={<ThoughtLeadershipPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/philosophy" element={<PhilosophyPage />} />
@@ -1319,7 +1320,7 @@ function AppShell() {
           <span>Ologos</span>
         </div>
         <ul className="footer-links">
-          {[["platform","Platform"],["ventures","Ventures"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"],["contact","Contact"]].map(([p,label])=>(
+          {[["platform","Platform"],["opportunities","Opportunities"],["research","Thought Leadership"],["about","About"],["philosophy","Philosophy"],["team","Team"],["contact","Contact"]].map(([p,label])=>(
             <li key={p}><a onClick={()=>go(p)}>{label}</a></li>
           ))}
         </ul>
