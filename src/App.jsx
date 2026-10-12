@@ -665,8 +665,8 @@ function HomePage() {
         <div style={{maxWidth:1100}}>
           <p className="label" style={{marginBottom:"2rem"}}>Who We Work With</p>
           {[
-            ["Investors","Accredited investors and family offices evaluating exposure to emerging AI and defense-tech opportunities before they reach institutional scale."],
-            ["Enterprise Clients","Government and commercial enterprises seeking AI-enabled capabilities, enterprise architecture consultation, or pilot partnerships with novel technology."],
+            ["Investors","Accredited investors and family offices evaluating exposure to emerging AI and high-assurance technology opportunities before they reach institutional scale."],
+            ["Enterprise Clients","Organizations and commercial enterprises seeking AI-enabled capabilities, enterprise architecture consultation, or pilot partnerships with novel technology."],
             ["Strategic Acquirers","Platform companies and integrators seeking mature, mission-specific products with clean IP, proven teams, and minimal diligence risk."],
           ].map(([t,b],i) => (
             <div className="rule-item" key={t}>
@@ -816,7 +816,7 @@ function AboutPage() {
         <div className="two-col">
           <div>
             {["Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready opportunities.",
-              "When an idea matures, we spin it off as an independent company: its own cap table, its own IP assignments, its own governance. The opportunity is structured for investor diligence, government procurement, or strategic acquisition.",
+              "When an idea matures, we spin it off as an independent company: its own cap table, its own IP assignments, its own governance. The opportunity is structured for investor diligence, enterprise procurement, or strategic acquisition.",
               "The model is deliberate. Ologos absorbs the early-stage uncertainty so each opportunity can enter the market clean."
             ].map((t,i) => <p key={i} className="body-text" style={{marginBottom:"1.25rem"}}>{t}</p>)}
           </div>
@@ -900,9 +900,9 @@ function PhilosophyPage() {
 
 function TeamPage() {
   const team = [
-    {init:"ML",name:"Micah Longmire",role:"CEO / CTO",bio:"Sr. Systems and AI Architect with a track record of delivering AI capability across classified, multi-cloud federal environments. Micah leads product development from concept through deployment -- building enterprise GenAI platforms, agentic orchestration frameworks, and RAG-based systems that meet the compliance rigor of regulated settings. His hands-on work spans AWS GovCloud and Bedrock, FedRAMP and NIST 800-53, and original tooling including CrewPort, an MCP-native AI agent marketplace. His orientation is consistent: moving AI from abstract promise into usable, governed, mission-relevant capability."},
-    {init:"JL",name:"Jay Longmire",role:"CFO / COO",bio:"Technology consultant and CEO of Peak TSP with two decades of experience bridging executive objectives and real-world technical execution. Jay's work spans software implementation, custom development, IT consulting, and business-process improvement -- with an MBA and hands-on technical depth that lets him operate fluently across both boardroom and infrastructure. His military background as an automation officer with the Mississippi Army National Guard, including deployments to Iraq, brings a disciplined, mission-focused approach to operational leadership and execution."},
-    {init:"JK",name:"Justin Kuiper, CISSP",role:"CISO",bio:"Cybersecurity and space systems architect with two decades of experience across aerospace, defense, high-performance computing, AI, and hybrid cloud infrastructure. Justin currently serves as Director of Architecture & Engineering at an award-winning aerospace and defense value-added reseller, where he leads secure cloud and infrastructure solutions for complex, multi-tenant environments supporting AI/ML workloads, defense missions, and critical infrastructure. His approach is secure-by-design from the ground up -- connecting technical rigor directly to operational outcomes."},
+    {init:"ML",name:"Micah Longmire",role:"CEO / CTO",bio:"Sr. Systems and AI Architect with a track record of delivering AI capability across highly secure, sensitive, multi-cloud environments. Micah leads product development from concept through deployment -- building enterprise GenAI platforms, agentic orchestration frameworks, and RAG-based systems that meet the compliance rigor of regulated settings. His hands-on work spans AWS GovCloud and Bedrock, FedRAMP and NIST 800-53, and original tooling including CrewPort, an MCP-native AI agent marketplace. His orientation is consistent: moving AI from abstract promise into usable, governed, mission-relevant capability."},
+    {init:"JL",name:"Jay Longmire",role:"CFO / COO",bio:"Technology consultant and CEO of Peak TSP with two decades of experience bridging executive objectives and real-world technical execution. Jay's work spans software implementation, custom development, IT consulting, and business-process improvement -- with an MBA and hands-on technical depth that lets him operate fluently across both boardroom and infrastructure. His background leading complex technology operations brings a disciplined, mission-focused approach to operational leadership and execution."},
+    {init:"JK",name:"Justin Kuiper, CISSP",role:"CISO",bio:"Cybersecurity and space systems architect with two decades of experience across highly secure systems, high-performance computing, AI, and hybrid cloud infrastructure. Justin currently serves as Director of Architecture & Engineering at an award-winning technology solutions provider, where he leads secure cloud and infrastructure solutions for complex, multi-tenant environments supporting AI/ML workloads, sensitive operations, and critical infrastructure. His approach is secure-by-design from the ground up -- connecting technical rigor directly to operational outcomes."},
     {init:"JDL",name:"James D. Longmire",role:"CIO / CMO",bio:"James D. (JD) Longmire is an award-winning technology strategist and Senior Systems Architect with more than 30 years in enterprise and mission IT. He specializes in designing and governing federated digital ecosystems for regulated, mission-critical environments, spanning AI-enabled enterprise platforms, agentic systems, digital thread strategy, architecture governance, and large-scale infrastructure modernization. In parallel, he conducts independent research on the capabilities and limits of generative AI and the architectural requirements for trustworthy, accountable systems. His guiding principle is consistent: architecture must be technically rigorous, operationally effective, governable at scale, and aligned with human responsibility."},
   ];
   return (
@@ -918,7 +918,7 @@ function TeamPage() {
         <div style={{maxWidth:1200}}>
           <p className="label label-dark" style={{marginBottom:"1rem"}}>Leadership</p>
           <p className="body-text body-text-dark" style={{maxWidth:560,marginBottom:"3rem"}}>
-            The Ologos leadership team combines enterprise systems architecture, AI engineering, financial governance, and cybersecurity -- applied with the discipline of defense industry and the velocity of a lean opportunity operation.
+            The Ologos leadership team combines enterprise systems architecture, AI engineering, financial governance, and cybersecurity -- applied with the discipline of high-assurance systems engineering and the velocity of a lean opportunity operation.
           </p>
           <div className="team-grid">
             {team.map(m => (
@@ -1005,7 +1005,7 @@ function OpportunitiesPage() {
           sowhat="Enterprises are choosing between vendor lock-in and rebuilding everything themselves. AIOC proves a third path: your own governed control plane, commercial models where they fit, sovereign self-hosted models where they don't, already demonstrated in a working proof of concept for a highly regulated enterprise customer, with the sovereign self-hosted path architected and requirement-accepted for that customer's air-gapped environment." />
         <Opportunity n="03" name="OlogosOffice" stage="Live · demo on request"
           what="Ologos' own gated, self-hosted, AI-native collaboration and productivity suite: mail, files, office, chat, meet, git and CI, search, and an AI copilot."
-          sowhat="Regulated, defense, and sovereignty-bound orgs cannot put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof." />
+          sowhat="Highly secure, regulated, and sovereignty-bound organizations cannot put their work on hyperscaler clouds, and the agent economy is dragging everything toward those clouds. OlogosOffice is the stack they can own, AI built in. Ologos runs its own operations on it, so the dogfood is the proof." />
         <Opportunity n="04" name="SKIPJACK" stage="In development"
           what="A zero-trust, edge-first agentic platform for disconnected and contested environments. One governed substrate that carries identity, memory, assurance, just-in-time privilege, and behavioral observability for fleets of AI agents, built to run where the network is degraded, intermittent, or absent."
           sowhat="Every agent-security tool on the market assumes the cloud is reachable. Agent identity is the problem nobody has solved, and only one percent of organizations have adopted just-in-time privileged access. SKIPJACK is built for exactly that gap: privilege that exists only while it is observed and fails closed when visibility is lost, a custody and freshness layer that stamps the age of every piece of data, and observation of agents from beneath the runtime rather than from their own self-reports. The hyperscalers are structurally weakest here because they are built for connectivity and scale. That is the wedge." />
@@ -1278,9 +1278,9 @@ const PAGE_META = {
   platform: { title: "Ologos Unity — The Governed Operating Platform", description: "Ologos Unity is the governed operating platform unifying humans, AI agents, tools, and data to execute trusted work: a nine-part portfolio (studio, runtime, teams, workspaces, control, registry, evidence, connect, enterprise) built on security, sovereignty, and auditability." },
   opportunities: { title: "Opportunities — Ologos", description: "The Ologos portfolio: an opportunity engine attacking the agent economy from the standard down to the product, every project sharing one fingerprint -- governed, auditable, sovereign AI." },
   research: { title: "Thought Leadership — Ologos", description: "Published, DOI-registered AI research from the Ologos partners: the AIDE canon (AEON, AIDEX, OAgents, and related standards) and the HGC³AE² / Managing Agentics Ops corpus." },
-  about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready opportunities -- structured for investor diligence, government procurement, or strategic acquisition from day one." },
+  about: { title: "About — Ologos", description: "Ologos is a think tank and innovation factory, the capital-efficient incubation engine that produces investment-ready opportunities -- structured for investor diligence, enterprise procurement, or strategic acquisition from day one." },
   philosophy: { title: "Philosophy — Ologos", description: "Logos -- the Greek for word, reason, rational principle -- is the organizing conviction of the enterprise: agentic AI as amplification of human judgment, not replacement of it." },
-  team: { title: "Team — Ologos", description: "The Ologos Corp leadership team: systems and AI architects and technology operators, with deep experience in regulated federal and defense environments." },
+  team: { title: "Team — Ologos", description: "The Ologos Corp leadership team: systems and AI architects and technology operators, with deep experience in highly secure, sensitive, and regulated environments." },
   contact: { title: "Contact — Ologos", description: "Get in touch with Ologos -- for investors evaluating our opportunities, enterprise clients seeking AI-enabled capabilities, or strategic acquirers exploring a portfolio fit." },
 };
 
